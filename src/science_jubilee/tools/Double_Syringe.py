@@ -138,13 +138,13 @@ class DoubleSyringe(Tool):
             self._machine.move(de0 = headroom_ml, s = s, wait=True)
 
             # Priming of the left syringe after every refill for accurate first dose
-            self._machine.move(de0 = -15, s = s, wait = True)
+            self._machine.move(de0 = -10, s = s, wait = True)
         elif drive == self.e1_drive:
             #print(f"Performing e1 move")
             self._machine.move(de1 = headroom_ml, s = s, wait=True)
 
             # Priming of the right syringe after every refill for accurate first dose
-            self._machine.move(de1 = -15, s = s, wait = True)
+            self._machine.move(de1 = -10, s = s, wait = True)
     
     @requires_active_tool
     def refill(

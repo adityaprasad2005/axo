@@ -82,6 +82,7 @@ class Syringe(Tool):
         if pos > self.max_range or pos < self.min_range:
             raise ToolStateError(f"Error: {pos} is out of bounds for the syringe!")
 
+
     @requires_active_tool
     def _aspirate(self, vol: float, s: int = 50):
         """Aspirate a certain volume in milliliters. Used only to move the syringe; to aspirate from a particular well, see aspirate()
@@ -91,26 +92,25 @@ class Syringe(Tool):
         :param s: Speed at which to aspirate in mm/min, defaults to 2000
         :type s: int, optional
         """
-        de = vol * self.mm_to_ml
-        pos = self._machine.get_position()
-        end_pos = float(pos[self.e_drive]) + de
-        self.check_bounds(end_pos)
-        self._machine.move(de0=de, wait=True)
+        travel_mm = vol * self.mm_to_ml
 
-    @requires_active_tool
-    def _dispense(self, vol, s: int = 50):
-        """Dispense a certain volume in milliliters. Used only to move the syringe; to dispense into a particular well, see dispense()
+        current_pos = self._machine.get_position()
+        end_pos = float(current_pos[self.e_drive]) + travel_mm
 
-        :param vol: Volume to dispense, in milliliters
-        :type vol: float
-        :param s: Speed at which to dispense in mm/min, defaults to 2000
-        :type s: int, optional
-        """
-        de = vol * -1 * self.mm_to_ml
-        pos = self._machine.get_position()
-        end_pos = float(pos[self.e_drive]) + de
+        # aspirate: if we can't move any further, syringe is full
+        headroom_mm = self.max_range - current_pos
+        actual_mm = min(travel_mm, headroom_mm)
+        if actual_mm <= 0:
+            # already at max_range
+            return "Syringe already full; no aspirate performed"
+        
+        end_pos = current_pos + actual_mm
         self.check_bounds(end_pos)
-        self._machine.move(de0=de, wait=True)
+
+        self._machine.move(de0=actual_mm, s=s, wait=True)
+
+        # Return Aspirated Volume     
+        return actual_mm / self.mm_to_ml
 
     @requires_active_tool
     def aspirate(
@@ -130,11 +130,78 @@ class Syringe(Tool):
         self._machine.safe_z_movement()
         self._machine.move_to(x=x, y=y)
         self._machine.move_to(z=z)
+
         self._aspirate(vol, s=s)
 
     @requires_active_tool
+    def _dispense(self, vol, sample_loc: Union[Well, Tuple, Location], refill_loc: Union[Well, Tuple, Location] = None, s: int = 50):
+        """Dispense a certain volume in milliliters. Used only to move the syringe; to dispense into a particular well, see dispense()
+
+        :param vol: Volume to dispense, in milliliters
+        :type vol: float
+        :param s: Speed at which to dispense in mm/min, defaults to 2000
+        :type s: int, optional
+        """
+        travel_mm = vol * -1 * self.mm_to_ml
+
+        current_pos = self._machine.get_position()
+        end_pos = float(current_pos[self.e_drive]) + travel_mm
+
+        if end_pos < self.min_range: # dispense underflows
+
+            if refill_loc is None:
+                raise ToolStateError(f"dispense below 0 without refill location.")
+            # aspirate from refill_loc
+            self.refill(refill_loc=refill_loc, s = 150)
+
+        # return to the original well coords
+        x, y, z = Labware._getxyz(sample_loc)
+
+        self._machine.safe_z_movement()
+        self._machine.move_to(x=x, y=y, wait= True)
+        self._machine.move_to(z=z, wait= True)
+            
+        # recompute pos now at full, end_pos = full + de
+        refilled_pos = float(self._machine.get_position()[self.e_drive])
+        end_pos = refilled_pos + travel_mm
+        if end_pos < self.min_range:
+            raise ToolStateError(f"even after refill, dispense still underflows.")
+    
+        # Refilled
+        # now we know end_pos >= min_range
+        self._machine.move(de0=travel_mm, s = s, wait=True)
+        
+        # Return Dispensed Volume
+        return abs(travel_mm) / self.mm_to_ml
+
+    @requires_active_tool
+    def refill(self, refill_loc: Union[Well, Tuple, Location], s: int = 50):
+        """Refill the syringe
+
+        :param refill_loc: The location to refill the syringe from
+        :type refill_loc: Union[Well, Tuple, Location]
+        :param s: Speed at which to refill in mm/min, defaults to 2000
+        :type s: int, optional
+        """
+        # move to the refill location
+        x, y, z = Labware._getxyz(refill_loc)
+
+        self._machine.safe_z_movement()
+        self._machine.move_to(x=x, y=y, wait= True)
+        self._machine.move_to(z=z, wait= True)
+
+        # fully refill the syringe
+        current_pos = float(self._machine.get_position()[self.e_drive])
+        headroom_mm = self.max_range - current_pos
+
+        self._machine.move(de0= headroom_mm, s = s, wait=True)
+
+        # Priming of the left syringe after every refill for accurate first dose
+        self._machine.move(de0 = -10, s = s, wait = True)
+
+    @requires_active_tool
     def dispense(
-        self, vol: float, location: Union[Well, Tuple, Location], s: int = 50
+        self, vol: float, sample_loc: Union[Well, Tuple, Location], refill_loc: Union[Well, Tuple, Location], s: int = 50
     ):
         """Dispense a certain volume into a given well.
 
@@ -146,12 +213,43 @@ class Syringe(Tool):
         :type s: int, optional
 
         """
-        x, y, z = Labware._getxyz(location)
 
+        self._dispense(vol, sample_loc= sample_loc, refill_loc=refill_loc, s=s)
+    @requires_active_tool
+    def mix(
+        self,
+        loc: Union[Well, Tuple, Location],
+        num_cycles: int = 1,
+        vol: float = 0.0,
+        s: int = 50,
+    ):
+        """Mixes liquid by alternating aspirate and dispense steps for the specified number of times
+
+        :param num_cycles: The number of times to mix
+        :type num_cycles: int
+        :param vol: The volume of liquid to aspirate and dispense in uL
+        :type vol: float
+        :param s: The speed of the plunger movement in mm/min
+        :type s: int
+        """
+        x, y, z = Labware._getxyz(loc)
         self._machine.safe_z_movement()
         self._machine.move_to(x=x, y=y)
         self._machine.move_to(z=z)
-        self._dispense(vol, s=s)
+        
+        for i in range(0, num_cycles):
+            self._aspirate(vol, s=s)
+            self._dispense(vol, sample_loc=loc, s=s)   # No need to provide refill_loc bcz there just has been aspiration of the same amount of liquid into the syringe
+
+    @requires_active_tool 
+    def reset_position(self, s: int = 150):
+        """Resets the syringe position to the minimum position.
+        """
+        if self.e_drive is None:
+            raise ToolStateError("No syringe is currently active")
+        
+        current_pos = float(self._machine.get_position()[self.e_drive])
+        self._machine.move(de0=-current_pos, s=s, wait= True)
 
     @requires_active_tool
     def transfer(
@@ -237,28 +335,3 @@ class Syringe(Tool):
 #                 pass
 
 
-    @requires_active_tool
-    def mix(
-        self,
-        location: Union[Well, Tuple, Location],
-        num_cycles: int = 1,
-        vol: float = 0.0,
-        s: int = 50,
-    ):
-        """Mixes liquid by alternating aspirate and dispense steps for the specified number of times
-
-        :param num_cycles: The number of times to mix
-        :type num_cycles: int
-        :param vol: The volume of liquid to aspirate and dispense in uL
-        :type vol: float
-        :param s: The speed of the plunger movement in mm/min
-        :type s: int
-        """
-        x, y, z = Labware._getxyz(location)
-        self._machine.safe_z_movement()
-        self._machine.move_to(x=x, y=y)
-        self._machine.move_to(z=z)
-        
-        for i in range(0, num_cycles):
-            self._aspirate(vol, s=s)
-            self._dispense(vol, s=s)
