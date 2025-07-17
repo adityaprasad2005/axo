@@ -19,18 +19,14 @@
         [
             "A5",
             "B5"
-        ],
-        [
-            "A6",
-            "B6"
         ]
     ],
     "brand": {
-        "brand": "UWSUNLAB",
+        "brand": "UWSUNLab",
         "brandId": []
     },
     "metadata": {
-        "displayName": "UWSUNLAB 12 Well Plate 4000 \u00b5L",
+        "displayName": "UWSUNLab 10 Well Plate 11000 \u00b5L",
         "displayCategory": "wellPlate",
         "displayVolumeUnits": "\u00b5L",
         "tags": []
@@ -38,116 +34,98 @@
     "dimensions": {
         "xDimension": 127.5,
         "yDimension": 85.5,
-        "zDimension": 50
+        "zDimension": 70
     },
     "wells": {
         "A1": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
+            "diameter": 20,
             "x": 16.5,
             "y": 63.5,
-            "z": 5
+            "z": 4.99
         },
         "B1": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
+            "diameter": 20,
             "x": 16.5,
             "y": 22,
-            "z": 5
+            "z": 4.99
         },
         "A2": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
-            "x": 35.4,
+            "diameter": 20,
+            "x": 40.12,
             "y": 63.5,
-            "z": 5
+            "z": 4.99
         },
         "B2": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
-            "x": 35.4,
+            "diameter": 20,
+            "x": 40.12,
             "y": 22,
-            "z": 5
+            "z": 4.99
         },
         "A3": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
-            "x": 54.3,
+            "diameter": 20,
+            "x": 63.74,
             "y": 63.5,
-            "z": 5
+            "z": 4.99
         },
         "B3": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
-            "x": 54.3,
+            "diameter": 20,
+            "x": 63.74,
             "y": 22,
-            "z": 5
+            "z": 4.99
         },
         "A4": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
-            "x": 73.2,
+            "diameter": 20,
+            "x": 87.36,
             "y": 63.5,
-            "z": 5
+            "z": 4.99
         },
         "B4": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
-            "x": 73.2,
+            "diameter": 20,
+            "x": 87.36,
             "y": 22,
-            "z": 5
+            "z": 4.99
         },
         "A5": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
-            "x": 92.1,
+            "diameter": 20,
+            "x": 110.98,
             "y": 63.5,
-            "z": 5
+            "z": 4.99
         },
         "B5": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
+            "depth": 65.5,
+            "totalLiquidVolume": 11000,
             "shape": "circular",
-            "diameter": 16,
-            "x": 92.1,
+            "diameter": 20,
+            "x": 110.98,
             "y": 22,
-            "z": 5
-        },
-        "A6": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
-            "shape": "circular",
-            "diameter": 16,
-            "x": 111,
-            "y": 63.5,
-            "z": 5
-        },
-        "B6": {
-            "depth": 45,
-            "totalLiquidVolume": 4000,
-            "shape": "circular",
-            "diameter": 16,
-            "x": 111,
-            "y": 22,
-            "z": 5
+            "z": 4.99
         }
     },
     "groups": [
@@ -165,9 +143,7 @@
                 "A4",
                 "B4",
                 "A5",
-                "B5",
-                "A6",
-                "B6"
+                "B5"
             ]
         }
     ],
@@ -176,7 +152,7 @@
         "quirks": [],
         "isTiprack": false,
         "isMagneticModuleCompatible": false,
-        "loadName": "uwsunlab_12_wellplate_4000ul"
+        "loadName": ""
     },
     "namespace": "custom_beta",
     "version": 1,
@@ -187,18 +163,18 @@
         "z": 0
     },
     "manual_offset": {
-        "0": [
+        "5": [
             [
-                132.2,
-                36.3
+                271.0,
+                231.0
             ],
             [
-                38.2,
-                36.3
+                177.0,
+                231.0
             ],
             [
-                38.2,
-                77.5
+                177.0,
+                273.0
             ]
         ]
     }

@@ -8,7 +8,7 @@ from science_jubilee.tools.Tool import (
     ToolConfigurationError, 
     ToolStateError, 
     requires_active_tool,
-)
+) 
 
 class DoubleSyringe(Tool):
     def __init__(

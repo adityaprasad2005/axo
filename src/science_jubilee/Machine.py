@@ -693,6 +693,7 @@ class Machine:
         z = "{0:.2f}".format(z) if z is not None else None
         e0 = "{0:.2f}".format(e0) if e0 is not None else None
         e1 = "{0:.2f}".format(e1) if e1 is not None else None
+        print("e0, e1:", e0, e1)
         v = "{0:.2f}".format(v) if v is not None else None
         s = "{0:.2f}".format(s)
 
@@ -722,6 +723,7 @@ class Machine:
             param_cmd = param
 
         cmd = f"G0 {z_cmd} {x_cmd} {y_cmd} {e_cmd} {v_cmd} {f_cmd} {param_cmd}"
+        print(cmd)
         
         self.gcode(cmd)
         if wait:
@@ -764,8 +766,8 @@ class Machine:
         dx: float = 0,
         dy: float = 0,
         dz: float = 0,
-        de0: float = 0,
-        de1: float = 0,
+        de0: float = None,
+        de1: float = None,
         dv: float = 0,
         s: float = 6000,
         param: str = None,

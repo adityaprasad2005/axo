@@ -85,7 +85,7 @@ class Syringe(Tool):
     @requires_active_tool
     def _aspirate(self, vol: float, s: int = 50):
         """Aspirate a certain volume in milliliters. Used only to move the syringe; to aspirate from a particular well, see aspirate()
-
+ 
         :param vol: Volume to aspirate, in milliliters
         :type vol: float
         :param s: Speed at which to aspirate in mm/min, defaults to 2000
@@ -235,3 +235,30 @@ class Syringe(Tool):
 #                 self.mix(mix_after[0], mix_after[1])
 #             else:
 #                 pass
+
+
+    @requires_active_tool
+    def mix(
+        self,
+        location: Union[Well, Tuple, Location],
+        num_cycles: int = 1,
+        vol: float = 0.0,
+        s: int = 50,
+    ):
+        """Mixes liquid by alternating aspirate and dispense steps for the specified number of times
+
+        :param num_cycles: The number of times to mix
+        :type num_cycles: int
+        :param vol: The volume of liquid to aspirate and dispense in uL
+        :type vol: float
+        :param s: The speed of the plunger movement in mm/min
+        :type s: int
+        """
+        x, y, z = Labware._getxyz(location)
+        self._machine.safe_z_movement()
+        self._machine.move_to(x=x, y=y)
+        self._machine.move_to(z=z)
+        
+        for i in range(0, num_cycles):
+            self._aspirate(vol, s=s)
+            self._dispense(vol, s=s)
