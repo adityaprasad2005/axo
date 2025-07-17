@@ -638,6 +638,42 @@ class Labware(WellSet):
 
         return x_nominal, y_nominal
 
+
+
+    def manual_offset2(self, corner_wells: List[Tuple[float]], save: bool = False):
+        """
+        Calibrate any rectangular M×N plate from three corner points:
+            • corner_wells[0] = upper-left   (A1)
+            • corner_wells[1] = upper-right  (A{N})
+            • corner_wells[2] = lower-right  ({row_last}{N})
+        """
+        assert self.slot is not None, "Assign the labware to a deck slot first."
+        assert len(corner_wells) == 3, "Need exactly three corner points."
+        assert all(len(p) == 2 for p in corner_wells), "Each point is (x, y)."
+
+        ul = np.array(corner_wells[0], dtype=float)  # A1
+        ur = np.array(corner_wells[1], dtype=float)  # A{N}
+        br = np.array(corner_wells[2], dtype=float)  # {row_last}{N}
+
+        # Basis vectors for one-well pitch
+        x_vec = (ur - ul) / (len(self.column_data) - 1)   # → along columns
+        y_vec = (br - ur) / (len(self.row_data)    - 1)   # ↓ along rows
+
+        for well in self:
+            row_idx = string.ascii_uppercase.index(well.name[0])      # 0 … M-1
+            col_idx = int(well.name[1:]) - 1                          # 0 … N-1
+            pos = ul + col_idx * x_vec + row_idx * y_vec
+            well._x, well._y = float(pos[0]), float(pos[1])           # keep z
+
+        print(f"Manual offset applied to {self.parameters()['loadName']}")
+
+        if save:
+            self.manualOffset[str(self.slot)] = corner_wells
+            with open(self.config_path, "w") as f:
+                self.data["manual_offset"] = {str(self.slot): corner_wells}
+                json.dump(self.data, f, indent=4)
+            print("Manual offset saved")
+    
     def manual_offset(self, corner_wells: List[Tuple[float]], save: bool = False):
         """Allows the user to manually offset the coordinates of the labware based on three corner wells.
 
@@ -690,8 +726,8 @@ class Labware(WellSet):
             new_x, new_y = self._translate_point(
                 well, theta, x_space, y_space, upper_left
             )
-            well.x = new_x
-            well.y = new_y
+            well._x = new_x
+            well._y = new_y
         print(f'New manual offset applied to {self.parameters()["loadName"]}')
 
         if save:
@@ -717,7 +753,129 @@ class Labware(WellSet):
         else:
             self.manualOffset[str(self.slot)] = corner_wells
 
-    def load_manualOffset(self, apply: bool = True):
+    
+    def manual_offset_1row2col(self, corner_wells: List[Tuple[float, float]], save: bool = False):
+        """
+        Calibrate labware using two corner wells of a 1-row 2-column plate.
+
+        :param corner_wells: List of two (x, y) tuples representing left and right wells
+        :type corner_wells: List[Tuple[float, float]]
+        :param save: Whether to save this offset to the JSON file
+        :type save: bool
+        """
+        assert self.slot is not None, "Labware has not been assigned to a slot yet."
+        assert len(corner_wells) == 2, "Exactly two points needed for 1-row 2-column calibration"
+        assert all(len(p) == 2 for p in corner_wells), "Each point must have two coordinates (x, y)"
+
+        left = corner_wells[0]
+        right = corner_wells[1]
+
+        # Determine column spacing (2 columns only → 1 interval)
+        plate_width = ((right[0] - left[0]) ** 2 + (right[1] - left[1]) ** 2) ** 0.5
+        x_space = plate_width
+
+        # Compute angle of rotation
+        theta = np.arctan2((right[1] - left[1]), (right[0] - left[0]))
+
+        # Update well positions
+        for well in self:
+            col_index = int(well.name[1:]) - 1
+            dx = col_index * x_space
+            dy = 0
+            new_x = left[0] + dx * np.cos(theta) - dy * np.sin(theta)
+            new_y = left[1] + dx * np.sin(theta) + dy * np.cos(theta)
+            well._x = new_x
+            well._y = new_y
+
+        print(f"Manual offset applied for 1-row 2-column plate: {self.parameters()['loadName']}")
+
+        if save:
+            self.manualOffset[str(self.slot)] = corner_wells
+            with open(self.config_path, "w") as f:
+                self.data["manual_offset"] = {str(self.slot): corner_wells}
+                json.dump(self.data, f, indent=4)
+            print("Manual offset saved")
+    
+    
+    def manual_offset_small_plate(
+        self,
+        points: List[Tuple[float, float]],
+        *,
+        save: bool = False,
+        x_adjust: float = 0.0,
+        y_adjust: float = 0.0,
+        z_adjust: float | None = None,   # optional explicit Z override
+    ):
+        """
+        Apply a manual offset for plates with
+            • 1 × 1  (single well)
+            • 1 × N  (single row, many columns)
+            • N × 1  (single column, many rows)
+
+        `points` length:
+            1  → coordinates of the single well
+            2  → first and last wells along the long axis
+              * row-vector (1×N):  left-most, right-most
+              * col-vector (N×1):  top-most,  bottom-most
+        """
+        # ---------- sanity checks ----------
+        assert self.slot is not None, "Labware must be assigned to a deck slot."
+        n_rows, n_cols = self.shape
+        assert n_rows == 1 or n_cols == 1, "Use this helper only for 1-row or 1-col plates."
+        assert len(points) in (1, 2), "Give 1 or 2 (x, y) points."
+
+        # ---------- single-well ----------
+        if len(points) == 1:
+            x0, y0 = points[0]
+            for w in self:
+                w._x = x0 + x_adjust
+                w._y = y0 + y_adjust
+                if z_adjust is not None:
+                    w._z = z_adjust
+            msg = "1×1 plate"
+
+        # ---------- single-row  (1 × N) ----------
+        elif n_rows == 1:
+            left, right = points
+            pitch = np.hypot(right[0] - left[0], right[1] - left[1])     # distance between columns
+            theta = np.arctan2(right[1] - left[1], right[0] - left[0])   # rotation
+
+            for w in self:
+                col_idx = int(w.name[1:]) - 1          # 0 … N-1
+                dx = col_idx * pitch                   # dy = 0 (one row)
+                w._x = left[0] + dx*np.cos(theta) + x_adjust
+                w._y = left[1] + dx*np.sin(theta) + y_adjust
+                if z_adjust is not None:
+                    w._z = z_adjust
+            msg = f"1×{n_cols} plate"
+
+        # ---------- single-column (N × 1) ----------
+        else:  # n_cols == 1
+            top, bottom = points
+            pitch = np.hypot(bottom[0] - top[0], bottom[1] - top[1])     # distance between rows
+            theta = np.arctan2(bottom[0] - top[0], -(bottom[1] - top[1]))  # rotation
+
+            for w in self:
+                row_idx = string.ascii_uppercase.index(w.name[0])         # 0 … N-1
+                dy = row_idx * pitch                   # dx = 0 (one column)
+                w._x = top[0] + dy*np.sin(theta) + x_adjust
+                w._y = top[1] + dy*np.cos(theta) + y_adjust
+                if z_adjust is not None:
+                    w._z = z_adjust
+            msg = f"{n_rows}×1 plate"
+
+        print(f"Manual offset applied ({msg}),  x_adjust={x_adjust}, y_adjust={y_adjust}")
+
+        # ---------- optionally save ----------
+        if save:
+            self.manualOffset[str(self.slot)] = points
+            with open(self.config_path, "w") as f:
+                self.data["manual_offset"] = {str(self.slot): points}
+                json.dump(self.data, f, indent=4)
+            print("Manual offset saved.")
+    
+        
+    def load_manualOffset(self, apply: bool = True, method: str = "ask"):
         """Loads the manual offset of a labware from its config `.json` file for a specific slot
 
         :param apply: Option to apply the manual offset to the labware or return values, defaults to False
@@ -729,15 +887,77 @@ class Labware(WellSet):
         assert (
             self.slot is not None
         ), "Labware has not been assigned to a slot yet. Use the 'add_slot' method to assign a slot"
-        if self.manualOffset[str(self.slot)]:
-            if apply:
-                self.manual_offset(self.manualOffset[str(self.slot)])
-                return
-            else:
-                return self.manualOffset[str(self.slot)]
+        
+        points = self.manualOffset.get(str(self.slot))
+        if points is None:
+            raise ValueError(f"No Manual offset stored for slot {self.slot}")
+        
+        if not apply:
+            return points
+        
+        n = len(points)
+        
+        if n == 3:
+            self.manual_offset(points)                 # classic 3-corner routine
+        elif n in (1, 2):
+            self.manual_offset_small_plate(points)     # 1×1, 1×N, or N×1 helper
         else:
-            return self.data["manual_offset"][self.slot]
+            raise ValueError(f"Unsupported offset format: {n} points")
+        
+        #if self.manualOffset[str(self.slot)]:
+        #    if apply:
+        #        self.manual_offset(self.manualOffset[str(self.slot)])
+        #        return
+        #    else:
+        #        return self.manualOffset[str(self.slot)]
+        #else:
+        #    return self.data["manual_offset"][self.slot]
 
+    def load_manualOffset(self, apply: bool = True, *, method: str = "ask"):
+        """
+        Reload a saved manual offset.
+
+        method:
+            "classic"  → manual_offset()
+            "rigid"    → manual_offset2()
+            "ask"      → prompt user if 3-point
+        """
+        assert self.slot is not None, "Labware has not been assigned to a slot"
+        points = self.manualOffset.get(str(self.slot))
+        if points is None:
+            raise ValueError(f"No manual offset stored for slot {self.slot}")
+
+        if not apply:
+            return points
+
+        n = len(points)
+
+        if n in (1, 2):
+            self.manual_offset_small_plate(points)               # unchanged
+            return
+
+        if n != 3:
+            raise ValueError(f"Unsupported offset format: {n} points")
+
+        # -------- 3-point selection --------
+        if method == "classic":
+            self.manual_offset(points)
+        elif method == "rigid":
+            self.manual_offset2(points)
+        elif method == "ask":
+            choice = input(
+            "3-point offset detected.\n"
+            "  1) classic average-angle\n"
+            "  2) rigid transform (recommended)\n"
+            "Select 1 or 2 → "
+        ).strip()
+            if choice == "2":
+                self.manual_offset2(points)
+            else:
+                self.manual_offset(points)
+        else:
+            raise ValueError("method must be 'classic', 'rigid', or 'ask'")
+    
     @staticmethod
     def _getxyz(location: Union[Well, Tuple, "Location"]):
         """Helper function to extract the x, y, z coordinates of a location object.

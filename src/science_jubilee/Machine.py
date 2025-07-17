@@ -665,7 +665,8 @@ class Machine:
         x: float = None,
         y: float = None,
         z: float = None,
-        e: float = None,
+        e0: float = None,
+        e1: float = None,
         v: float = None,
         s: float = 6000,
         param: str = None,
@@ -690,7 +691,8 @@ class Machine:
         x = "{0:.2f}".format(x) if x is not None else None
         y = "{0:.2f}".format(y) if y is not None else None
         z = "{0:.2f}".format(z) if z is not None else None
-        e = "{0:.2f}".format(e) if e is not None else None
+        e0 = "{0:.2f}".format(e0) if e0 is not None else None
+        e1 = "{0:.2f}".format(e1) if e1 is not None else None
         v = "{0:.2f}".format(v) if v is not None else None
         s = "{0:.2f}".format(s)
 
@@ -703,8 +705,15 @@ class Machine:
             y_cmd = f"Y{y}"
         if z is not None:
             z_cmd = f"Z{z}"
-        if e is not None:
-            e_cmd = f"E{e}"
+        if e0 is not None and e1 is None:
+            # move ONLY drive-0
+            e_cmd = f"E{e0}"
+        elif e0 is None and e1 is not None:
+            # move ONLY drive-1 → include a 0 for drive-0
+            e_cmd = f"E0:{e1}"
+        elif e0 is not None and e1 is not None:
+            # move both drives
+            e_cmd = f"E{e0}:{e1}"
         if v is not None:
             v_cmd = f"V{v}"
         if s is not None:
@@ -713,6 +722,7 @@ class Machine:
             param_cmd = param
 
         cmd = f"G0 {z_cmd} {x_cmd} {y_cmd} {e_cmd} {v_cmd} {f_cmd} {param_cmd}"
+        
         self.gcode(cmd)
         if wait:
             self.gcode(f"M400")
@@ -722,7 +732,8 @@ class Machine:
         x: float = None,
         y: float = None,
         z: float = None,
-        e: float = None,
+        e0: float = None,
+        e1: float = None,
         v: float = None,
         s: float = 6000,
         param: str = None,
@@ -746,14 +757,15 @@ class Machine:
         """
         self._set_absolute_positioning()
 
-        self._move_xyzev(x=x, y=y, z=z, e=e, v=v, s=s, param=param, wait=wait)
+        self._move_xyzev(x=x, y=y, z=z, e0=e0, e1=e1, v=v, s=s, param=param, wait=wait)
 
     def move(
         self,
         dx: float = 0,
         dy: float = 0,
         dz: float = 0,
-        de: float = 0,
+        de0: float = 0,
+        de1: float = 0,
         dv: float = 0,
         s: float = 6000,
         param: str = None,
@@ -808,7 +820,7 @@ class Machine:
                 raise MachineStateError("Error: Relative move exceeds Z axis limit!")
         self._set_relative_positioning()
 
-        self._move_xyzev(x=dx, y=dy, z=dz, e=de, v=dv, s=s, param=param, wait=wait)
+        self._move_xyzev(x=dx, y=dy, z=dz, e0=de0, e1=de1, v=dv, s=s, param=param, wait=wait)
 
     def dwell(self, t: float, millis: bool = True):
         """Pauses the machine for a period of time.
@@ -965,6 +977,8 @@ class Machine:
         max_tries = 50
         for i in range(max_tries):
             resp = self.gcode("M114")
+            if resp is None:
+                continue   # try again
             if "Count" not in resp:
                 continue
             else:

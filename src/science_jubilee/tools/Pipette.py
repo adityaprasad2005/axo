@@ -124,7 +124,7 @@ class Pipette(Tool):
         :return: The corresponding motor movement in mm
         :rtype: float
         """
-        dv = vol * self.mm_to_ul  # will need to change this value
+        dv = vol * self.mm_to_ul    # will need to change this value
 
         return dv
 
@@ -184,7 +184,7 @@ class Pipette(Tool):
 
         self._machine.safe_z_movement()
         self._machine.move_to(x=x, y=y)
-        self._machine.move_to(z=z)
+        self._machine.move_to(z=z - 40)  # CHANGED TO Z-30 since we don't use 20~300ul Pipette
         self._aspirate(vol, s=s)
 
     @requires_active_tool
@@ -240,7 +240,7 @@ class Pipette(Tool):
 
         self._machine.safe_z_movement()
         self._machine.move_to(x=x, y=y)
-        self._machine.move_to(z=z)
+        self._machine.move_to(z=z - 40)   # CHANGED TO Z-20 since we don't use 20~300ul Pipette
         self._dispense(vol, s=s)
 
     @requires_active_tool
@@ -407,17 +407,17 @@ class Pipette(Tool):
 
                 # blow_out if indicated
                 if blowout:
-                    self.blowout()
+                    self.blowout(s=3000)
                 else:
                     pass
 
                 # --------------- Tip Strategy ----------------
                 if new_tip == "always":
-                    self.drop_tip()
+                    self.drop_tip(self.trash)
                 elif new_tip == "once":
                     if mix_after:
                         if len(mix_after) == 3 and src == stock_to_mix:
-                            self.drop_tip()
+                            self.drop_tip(self.trash)
                             TT_dict.pop(source_name)
                         else:
                             self.return_tip(tip)

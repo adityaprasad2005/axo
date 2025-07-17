@@ -28,7 +28,7 @@ class Syringe(Tool):
         self.min_range = 0
         self.max_range = None
         self.mm_to_ml = None
-        self.e_drive = "E"
+        self.e_drive = "E2"
 
         self.load_config(config)
 
@@ -83,7 +83,7 @@ class Syringe(Tool):
             raise ToolStateError(f"Error: {pos} is out of bounds for the syringe!")
 
     @requires_active_tool
-    def _aspirate(self, vol: float, s: int = 2000):
+    def _aspirate(self, vol: float, s: int = 50):
         """Aspirate a certain volume in milliliters. Used only to move the syringe; to aspirate from a particular well, see aspirate()
 
         :param vol: Volume to aspirate, in milliliters
@@ -91,14 +91,14 @@ class Syringe(Tool):
         :param s: Speed at which to aspirate in mm/min, defaults to 2000
         :type s: int, optional
         """
-        de = vol * -1 * self.mm_to_ml
+        de = vol * self.mm_to_ml
         pos = self._machine.get_position()
         end_pos = float(pos[self.e_drive]) + de
         self.check_bounds(end_pos)
-        self._machine.move(de=de, wait=True)
+        self._machine.move(de0=de, wait=True)
 
     @requires_active_tool
-    def _dispense(self, vol, s: int = 2000):
+    def _dispense(self, vol, s: int = 50):
         """Dispense a certain volume in milliliters. Used only to move the syringe; to dispense into a particular well, see dispense()
 
         :param vol: Volume to dispense, in milliliters
@@ -106,15 +106,15 @@ class Syringe(Tool):
         :param s: Speed at which to dispense in mm/min, defaults to 2000
         :type s: int, optional
         """
-        de = vol * self.mm_to_ml
+        de = vol * -1 * self.mm_to_ml
         pos = self._machine.get_position()
         end_pos = float(pos[self.e_drive]) + de
         self.check_bounds(end_pos)
-        self._machine.move(de=de, wait=True)
+        self._machine.move(de0=de, wait=True)
 
     @requires_active_tool
     def aspirate(
-        self, vol: float, location: Union[Well, Tuple, Location], s: int = 2000
+        self, vol: float, location: Union[Well, Tuple, Location], s: int = 50
     ):
         """Aspirate a certain volume from a given well.
 
@@ -134,7 +134,7 @@ class Syringe(Tool):
 
     @requires_active_tool
     def dispense(
-        self, vol: float, location: Union[Well, Tuple, Location], s: int = 2000
+        self, vol: float, location: Union[Well, Tuple, Location], s: int = 50
     ):
         """Dispense a certain volume into a given well.
 
@@ -157,7 +157,7 @@ class Syringe(Tool):
     def transfer(
         self,
         vol: float,
-        s: int = 2000,
+        s: int = 50,
         source: Well = None,
         destination: Well = None,
         mix_before: tuple = None,

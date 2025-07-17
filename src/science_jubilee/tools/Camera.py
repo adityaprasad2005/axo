@@ -15,8 +15,8 @@ from science_jubilee.labware.Labware import Well
 from science_jubilee.tools.Tool import Tool, requires_active_tool
 
 if platform.system() == "Linux":
-    import picamera  # Note that this can only be installed on raspbery pi.
-
+    #import picamera  # Note that this can only be installed on raspbery pi.
+    import picamera2
 
 class Camera(Tool):
     """A class representation of a Raspberry Pi camera.
@@ -30,9 +30,9 @@ class Camera(Tool):
         super().__init__(index, name)
         self._camera_matrix = None
         self._dist_matrix = None
-        # self.load_coefficients(
-        #     "/home/pi/POSE/science-jubilee/science-jubilee/tools/configs/calibration_checkerboard.yml"
-        # )
+        self.load_coefficients(
+             "C:/science-jubilee/src/science_jubilee/tools/configs/calibration_checkerboard.yml"
+        )
 
     def load_coefficients(self, path):
         """Loads camera matrix and distortion coefficients.
@@ -91,7 +91,8 @@ class Camera(Tool):
         :return: The captured frame
         :rtype: ndarray
         """
-        with picamera.PiCamera() as camera:
+        #with picamera.PiCamera() as camera:
+        with picamera2.Picamera2() as camera:
             camera.resolution = (1200, 1200)
             camera.framerate = 24
             time.sleep(5)

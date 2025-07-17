@@ -1,6 +1,6 @@
 {
-    "ip_address": "192.168.1.4",
-    "port": 5000,
+    "ip_address": "192.168.1.3",
+    "port": 22,
     "video_endpoint": "video_feed",
     "still_endpoint": "picture",
     "image_folder": "./sample_images",
