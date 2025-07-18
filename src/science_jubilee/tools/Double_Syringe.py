@@ -374,7 +374,7 @@ class DoubleSyringe(Tool):
     
     # After experimentation empty the syringe
     @requires_active_tool 
-    def reset_position(self, s: int = 150):
+    def reset_position(self, s: int = 350):
         """
         Moves both syringes (E0 and E1) to position 0 (fully dispensed).
 

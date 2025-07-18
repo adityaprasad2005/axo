@@ -287,7 +287,16 @@ class Spectrometer(Tool, OceanDirectAPI):
         else:
             self.current_well = location                     # e.g. raw (x, y, z) tuple
 
-        
+
+    @requires_active_tool
+    def wash_probe(self, wash_loc : Union[Well, Tuple, Location], n_cycles : int = 1):
+        """
+        Wash the probe with the supplied location.
+        """
+        for i in range(n_cycles):
+            self.position_probe(wash_loc)
+
+
     @requires_active_tool
     def collect_spectrum(self,
                          location: Union[Well, Tuple, Location],
@@ -481,3 +490,5 @@ class Spectrometer(Tool, OceanDirectAPI):
                 plt.close()
 
         return wavelengths, absorbance
+
+    

@@ -94,8 +94,8 @@ class Syringe(Tool):
         """
         travel_mm = vol * self.mm_to_ml
 
-        current_pos = self._machine.get_position()
-        end_pos = float(current_pos[self.e_drive]) + travel_mm
+        current_pos = float(self._machine.get_position()[self.e_drive])
+        end_pos = current_pos + travel_mm
 
         # aspirate: if we can't move any further, syringe is full
         headroom_mm = self.max_range - current_pos
@@ -139,6 +139,10 @@ class Syringe(Tool):
 
         :param vol: Volume to dispense, in milliliters
         :type vol: float
+        :param sample_loc: The location (e.g. a `Well` object) from where to aspirate the liquid from.
+        :type sample_loc: Union[Well, Tuple, Location]
+        :param refill_loc: The location (e.g. a `Well` object) from where to aspirate the liquid from.
+        :type refill_loc: Union[Well, Tuple, Location]
         :param s: Speed at which to dispense in mm/min, defaults to 2000
         :type s: int, optional
         """
@@ -242,7 +246,7 @@ class Syringe(Tool):
             self._dispense(vol, sample_loc=loc, s=s)   # No need to provide refill_loc bcz there just has been aspiration of the same amount of liquid into the syringe
 
     @requires_active_tool 
-    def reset_position(self, s: int = 150):
+    def reset_position(self, s: int = 400):
         """Resets the syringe position to the minimum position.
         """
         if self.e_drive is None:
