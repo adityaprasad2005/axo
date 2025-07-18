@@ -289,7 +289,7 @@ class Spectrometer(Tool, OceanDirectAPI):
 
 
     @requires_active_tool
-    def wash_probe(self, wash_loc : Union[Well, Tuple, Location], n_cycles : int = 1):
+    def wash_probe(self, wash_loc : Union[Well, Tuple, Location], n_cycles : int = 2):
         """
         Wash the probe with the supplied location.
         """
