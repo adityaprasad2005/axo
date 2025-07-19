@@ -191,6 +191,7 @@ class Deck(SlotSet):
         self,
         labware_filename: str,
         slot: int,
+        has_lid_on_top: bool= False,
         path=os.path.join(
             os.path.dirname(__file__), "..", "labware", "labware_definition"
         ),
@@ -212,7 +213,7 @@ class Deck(SlotSet):
         :return: The :class:`Labware` object that has been loaded into the slot.
         :rtype: :class:`Labware`"""
 
-        labware = Labware(labware_filename, order=order)
+        labware = Labware(labware_filename, has_lid_on_top, order=order)
         labware.add_slot(slot)
         offset = self.slots[str(slot)].offset
 

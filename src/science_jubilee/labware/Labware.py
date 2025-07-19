@@ -35,6 +35,7 @@ class Well:
     has_tip: bool = False
     clean_tip: bool = False
     labware_name: str = None
+    labware_obj: object = None
 
     @property
     def x(self):
@@ -280,6 +281,7 @@ class Labware(WellSet):
     def __init__(
         self,
         labware_filename: str,
+        has_lid_on_top: bool = False,
         offset: Tuple[float] = None,
         order: str = "rows",
         path: str = os.path.join(os.path.dirname(__file__), "labware_definition"),
@@ -312,6 +314,9 @@ class Labware(WellSet):
         self.config_path = config_path
         self.wells_data = self.data.get("wells", {})
         self.row_data, self.column_data, self.wells = self._create_rows_and_columns()
+
+        # Used to keep a track if the labware has lid on top of it
+        self.has_lid_on_top = has_lid_on_top
 
         order_options = [
             "rows",
@@ -386,7 +391,8 @@ class Labware(WellSet):
 
         # add labware name to each Well object
         for well in wells.values():
-            well.labware_name = self.display_name
+            well.labware_name = self.display_name 
+            well.labware_obj = self
 
         # Convert dictionary data to Row and Column classes
         _rows = {k: Row(identifier=k, wells=v) for k, v in rows.items()}

@@ -1000,7 +1000,7 @@ class Machine:
         return positions
 
     def load_labware(
-        self, labware_filename: str, slot: int, path: str = None, order: str = "rows"
+        self, labware_filename: str, slot: int, has_lid_on_top: bool = False, path: str = None, order: str = "rows"
     ):
         """Function that loads a labware and associates it with a specific slot on the deck.
          The slot offset is also applied to the labware asocaite with it.
@@ -1019,10 +1019,10 @@ class Machine:
         """
         if path is not None:
             labware = self.deck.load_labware(
-                labware_filename, slot, path=path, order=order
+                labware_filename, slot, has_lid_on_top, path=path, order=order
             )
         else:
-            labware = self.deck.load_labware(labware_filename, slot, order=order)
+            labware = self.deck.load_labware(labware_filename, slot, has_lid_on_top, order=order)
 
         return labware
 

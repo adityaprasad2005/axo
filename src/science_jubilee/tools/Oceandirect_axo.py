@@ -268,13 +268,16 @@ class Spectrometer(Tool, OceanDirectAPI):
         Safe-Z retract, XY move, then Z plunge (same pattern you used before).  
         Stores both `self.current_well` and `self.current_location` so that
         subsequent data-only calls can use that context.
-        """
+        """ 
+
+        # Error handling to check if the labware at location has lid or not
+        self.lid_on_top_error_handling(location, expected_condition = False)
+
         x, y, z = Labware._getxyz(location)
 
         self._machine.safe_z_movement()
         self._machine.move_to(x=x, y=y, wait = True)
         self._machine.move_to(z=z, wait = True)
-        # Replace 50 to well plate or reservoir height
         
         # ---------- robust well bookkeeping ----------
         if isinstance(location, Well):
@@ -285,7 +288,7 @@ class Spectrometer(Tool, OceanDirectAPI):
             self.current_location = location._labware
             self.current_well = self.current_location.name
         else:
-            self.current_well = location                     # e.g. raw (x, y, z) tuple
+            self.current_well = location                     # e.g. raw (x, y, z) tuple  
 
 
     @requires_active_tool

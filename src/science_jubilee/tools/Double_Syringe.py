@@ -152,6 +152,10 @@ class DoubleSyringe(Tool):
         """
             Always refill the desired_volume that user wants
         """
+
+        # Error handling to check if the labware at refill_loc has lid or not
+        self.lid_on_top_error_handling(location= refill_loc, expected_condition = False) 
+
         if drive == self.e0_drive:
             # You have to decide which precursor for each MOTOR drive (Precursors)
             refill_x, refill_y, refill_z = Labware._getxyz(refill_loc)
@@ -260,6 +264,11 @@ class DoubleSyringe(Tool):
         #self._machine.move_to(x=x, y=y)
         #self._machine.move_to(z=z)
 
+
+        # Error handling to check if the labware at loc has lid or not
+        self.lid_on_top_error_handling(location= loc, expected_condition = False)
+            
+            
         # 3) compute the mm travel for this vol 
         travel_mm = vol * self.mm_to_ml * (-1 if dispense else 1)
 

@@ -124,7 +124,11 @@ class Syringe(Tool):
         :type location: Union[Well, Tuple, Location]
         :param s: Speed at which to aspirate in mm/min, defaults to 2000
         :type s: int, optional
-        """
+        """ 
+
+        # Error handling to check if the labware at location has lid or not
+        self.lid_on_top_error_handling(location= location, expected_condition = False)
+        
         x, y, z = Labware._getxyz(location)
 
         self._machine.safe_z_movement()
@@ -146,6 +150,11 @@ class Syringe(Tool):
         :param s: Speed at which to dispense in mm/min, defaults to 2000
         :type s: int, optional
         """
+
+        #  Error handling to check if the labware at location has lid or not
+        self.lid_on_top_error_handling(location= sample_loc, expected_condition = False)
+
+
         travel_mm = vol * -1 * self.mm_to_ml
 
         current_pos = self._machine.get_position()
@@ -187,6 +196,10 @@ class Syringe(Tool):
         :param s: Speed at which to refill in mm/min, defaults to 2000
         :type s: int, optional
         """
+
+        # Error handling to check if the labware at location has lid or not
+        self.lid_on_top_error_handling(location= refill_loc, expected_condition = False)
+        
         # move to the refill location
         x, y, z = Labware._getxyz(refill_loc)
 
@@ -235,7 +248,11 @@ class Syringe(Tool):
         :type vol: float
         :param s: The speed of the plunger movement in mm/min
         :type s: int
-        """
+        """ 
+
+        # Error handling to check if the labware at location has lid or not
+        self.lid_on_top_error_handling(location= loc, expected_condition = False)
+            
         x, y, z = Labware._getxyz(loc)
         self._machine.safe_z_movement()
         self._machine.move_to(x=x, y=y)
