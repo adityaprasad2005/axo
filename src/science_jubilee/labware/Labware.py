@@ -35,7 +35,8 @@ class Well:
     has_tip: bool = False
     clean_tip: bool = False
     labware_name: str = None
-    labware_obj: object = None
+    labware_obj: object = None 
+    currentLiquidVolume: float = 0
 
     @property
     def x(self):
@@ -281,7 +282,8 @@ class Labware(WellSet):
     def __init__(
         self,
         labware_filename: str,
-        has_lid_on_top: bool = False,
+        has_lid_on_top: bool = False, 
+        currentLiquidVolume: float = 0,
         offset: Tuple[float] = None,
         order: str = "rows",
         path: str = os.path.join(os.path.dirname(__file__), "labware_definition"),
@@ -298,7 +300,10 @@ class Labware(WellSet):
         :param path: Path to the folder containing the configuration `.json` files for the labware,
                 defaults to the 'labware_definition/' in the science_jubilee/labware directory.
         :type path: str, optional
-        """
+        """ 
+        # This class attribute is just used while initialising the Labware class
+        self.store_liquid_volume = currentLiquidVolume
+
         # load in the labware configuration file
         if labware_filename[-4:] != "json":
             labware_filename = labware_filename + ".json"
@@ -392,7 +397,9 @@ class Labware(WellSet):
         # add labware name to each Well object
         for well in wells.values():
             well.labware_name = self.display_name 
-            well.labware_obj = self
+            well.labware_obj = self 
+            well.currentLiquidVolume = self.store_liquid_volume 
+            well.totalLiquidVolume = well.totalLiquidVolume/1000           # convert ul to ml
 
         # Convert dictionary data to Row and Column classes
         _rows = {k: Row(identifier=k, wells=v) for k, v in rows.items()}

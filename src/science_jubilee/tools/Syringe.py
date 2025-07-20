@@ -84,7 +84,7 @@ class Syringe(Tool):
 
 
     @requires_active_tool
-    def _aspirate(self, vol: float, s: int = 50):
+    def _aspirate(self, vol: float, location: Union[Well, Tuple, Location], s: int = 50):
         """Aspirate a certain volume in milliliters. Used only to move the syringe; to aspirate from a particular well, see aspirate()
  
         :param vol: Volume to aspirate, in milliliters
@@ -92,6 +92,10 @@ class Syringe(Tool):
         :param s: Speed at which to aspirate in mm/min, defaults to 2000
         :type s: int, optional
         """
+        # Error handling to check if the well at loc has enough liquid or not(For aspirate only) 
+        # and to check if the target dispense volume does not overfill the well (For dispense only)
+        self.check_liquid_level(location=location, target_volume=vol, is_dispense=False)
+
         travel_mm = vol * self.mm_to_ml
 
         current_pos = float(self._machine.get_position()[self.e_drive])
@@ -109,8 +113,14 @@ class Syringe(Tool):
 
         self._machine.move(de0=actual_mm, s=s, wait=True)
 
+        # Calculate Aspirated Volume
+        Aspirated_Volume = actual_mm / self.mm_to_ml
+
+        # Update the currentLiquidVolume of the well at location 
+        self.update_currentLiquidVolume(volume=Aspirated_Volume, location=location, is_dispense=False)
+        
         # Return Aspirated Volume     
-        return actual_mm / self.mm_to_ml
+        return Aspirated_Volume
 
     @requires_active_tool
     def aspirate(
@@ -135,7 +145,7 @@ class Syringe(Tool):
         self._machine.move_to(x=x, y=y)
         self._machine.move_to(z=z)
 
-        self._aspirate(vol, s=s)
+        self._aspirate(vol, location, s=s)
 
     @requires_active_tool
     def _dispense(self, vol, sample_loc: Union[Well, Tuple, Location], refill_loc: Union[Well, Tuple, Location] = None, s: int = 50):
@@ -153,6 +163,10 @@ class Syringe(Tool):
 
         #  Error handling to check if the labware at location has lid or not
         self.lid_on_top_error_handling(location= sample_loc, expected_condition = False)
+
+        # Error handling to check if the well at loc has enough liquid or not(For aspirate only) 
+        # and to check if the target dispense volume does not overfill the well (For dispense only)
+        self.check_liquid_level(location=sample_loc, target_volume=vol, is_dispense=True)
 
 
         travel_mm = vol * -1 * self.mm_to_ml
@@ -184,8 +198,14 @@ class Syringe(Tool):
         # now we know end_pos >= min_range
         self._machine.move(de0=travel_mm, s = s, wait=True)
         
+        # Calculate Dispensed Volume
+        Dispensed_Volume = abs(travel_mm) / self.mm_to_ml 
+
+        # update the currentLiquidVolume for the well at sample_loc 
+        self.update_currentLiquidVolume(volume= Dispensed_Volume, location= sample_loc, is_dispense= True) 
+
         # Return Dispensed Volume
-        return abs(travel_mm) / self.mm_to_ml
+        return Dispensed_Volume 
 
     @requires_active_tool
     def refill(self, refill_loc: Union[Well, Tuple, Location], s: int = 50):
@@ -198,8 +218,25 @@ class Syringe(Tool):
         """
 
         # Error handling to check if the labware at location has lid or not
-        self.lid_on_top_error_handling(location= refill_loc, expected_condition = False)
+        self.lid_on_top_error_handling(location= refill_loc, expected_condition = False) 
+
+        # fully refill the syringe
+        current_pos = float(self._machine.get_position()[self.e_drive])
+        headroom_mm = self.max_range - current_pos
+
+        # We need some prime_distance for priming of the syringe 
+        prime_distance = -10
+ 
+        # Calculate the actual mm to move
+        actual_mm = headroom_mm + prime_distance 
+
+        # Calculate the Aspirated Volume
+        Aspirated_Volume = actual_mm / self.mm_to_ml
+
+        # Error handling to check if the well at refill_loc has enough liquid or not 
+        self.check_liquid_level(location=refill_loc, target_volume=Aspirated_Volume, is_dispense=False)
         
+
         # move to the refill location
         x, y, z = Labware._getxyz(refill_loc)
 
@@ -207,14 +244,14 @@ class Syringe(Tool):
         self._machine.move_to(x=x, y=y, wait= True)
         self._machine.move_to(z=z, wait= True)
 
-        # fully refill the syringe
-        current_pos = float(self._machine.get_position()[self.e_drive])
-        headroom_mm = self.max_range - current_pos
-
+        # aspirate from refill_loc
         self._machine.move(de0= headroom_mm, s = s, wait=True)
 
         # Priming of the left syringe after every refill for accurate first dose
-        self._machine.move(de0 = -10, s = s, wait = True)
+        self._machine.move(de0 = prime_distance, s = s, wait = True) 
+
+        # update the currentLiquidVolume for the well at refill_loc
+        self.update_currentLiquidVolume(volume= Aspirated_Volume, location= refill_loc, is_dispense= False)
 
     @requires_active_tool
     def dispense(

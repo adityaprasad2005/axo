@@ -1,24 +1,24 @@
 {
     "ordering": [
         [
-            "C1",
-            "D1"
+            "A1",
+            "B1"
         ],
         [
-            "C2",
-            "D2"
+            "A2",
+            "B2"
         ],
         [
-            "C3",
-            "D3"
+            "A3",
+            "B3"
         ],
         [
-            "C4",
-            "D4"
+            "A4",
+            "B4"
         ],
         [
-            "C5",
-            "D5"
+            "A5",
+            "B5"
         ]
     ],
     "brand": {
@@ -26,7 +26,7 @@
         "brandId": []
     },
     "metadata": {
-        "displayName": "UWSUNLab 10 Well Plate 11000 \u00b5L",
+        "displayName": "UWSUNLab 10 Well Plate 14000 \u00b5L",
         "displayCategory": "wellPlate",
         "displayVolumeUnits": "\u00b5L",
         "tags": []
@@ -37,90 +37,90 @@
         "zDimension": 81
     },
     "wells": {
-        "C1": {
+        "A1": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 16.5,
             "y": 63.5,
             "z": 4.99
         },
-        "D1": {
+        "B1": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 16.5,
             "y": 22,
             "z": 4.99
         },
-        "C2": {
+        "A2": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 40.12,
             "y": 63.5,
             "z": 4.99
         },
-        "D2": {
+        "B2": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 40.12,
             "y": 22,
             "z": 4.99
         },
-        "C3": {
+        "A3": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 63.74,
             "y": 63.5,
             "z": 4.99
         },
-        "D3": {
+        "B3": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 63.74,
             "y": 22,
             "z": 4.99
         },
-        "C4": {
+        "A4": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 87.36,
             "y": 63.5,
             "z": 4.99
         },
-        "D4": {
+        "B4": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 87.36,
             "y": 22,
             "z": 4.99
         },
-        "C5": {
+        "A5": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 110.98,
             "y": 63.5,
             "z": 4.99
         },
-        "D5": {
+        "B5": {
             "depth": 80,
-            "totalLiquidVolume": 11000,
+            "totalLiquidVolume": 14000,
             "shape": "circular",
             "diameter": 20,
             "x": 110.98,
@@ -134,16 +134,16 @@
                 "wellBottomShape": "flat"
             },
             "wells": [
-                "C1",
-                "D1",
-                "C2",
-                "D2",
-                "C3",
-                "D3",
-                "C4",
-                "D4",
-                "C5",
-                "D5"
+                "A1",
+                "B1",
+                "A2",
+                "B2",
+                "A3",
+                "B3",
+                "A4",
+                "B4",
+                "A5",
+                "B5"
             ]
         }
     ],
@@ -163,18 +163,18 @@
         "z": 0
     },
     "manual_offset": {
-        "5": [
+        "2": [
             [
-                270.0,
-                228.0
+                127.4,
+                131.6
             ],
             [
-                178.0,
-                228.0
+                33.4,
+                131.6
             ],
             [
-                177.0,
-                270.0
+                33.4,
+                172.7
             ]
         ]
     }

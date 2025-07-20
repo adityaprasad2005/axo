@@ -71,6 +71,43 @@ class Tool:
         
         labware.has_lid_on_top = not labware.has_lid_on_top
 
+    def check_liquid_level(self, location: Union[Well, Tuple, Location], target_volume: float, is_dispense :bool):
+        """ Error handling function to check if the well at location has enough liquid to aspirate target_volume 
+            Or if can accomdate target_volume for dispensing at the well location
+        """
+
+        # Get the well object from the location
+        if isinstance(location, Well):
+            well_obj = location
+        elif isinstance(location, Location):
+            well_obj = location._labware
+
+        # Check if the well has enough liquid to aspirate or dispense the target_volume
+        if is_dispense == True:                    # volume is to be dispensed at the location
+            if well_obj.currentLiquidVolume + target_volume <= well_obj.totalLiquidVolume:
+                pass 
+            else:
+                raise ToolStateError(f"{well_obj} Well cannot accomodate {target_volume} ml dispense liquid volume ") 
+        else:                                      # volume is to be aspirated out of the location
+            if well_obj.currentLiquidVolume - target_volume >= 0:
+                pass
+            else:
+                raise ToolStateError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ")
+
+    def update_currentLiquidVolume(self, volume: float, location: Union[Well, Tuple, Location], is_dispense: bool):
+        """Update the current liquid volume for the well at location.""" 
+
+        # Get the well object from the location
+        if isinstance(location, Well):
+            well_obj = location
+        elif isinstance(location, Location):
+            well_obj = location._labware 
+        
+        # Update the current liquid volume for the well
+        if is_dispense == True:                    # volume is dispensed at the location 
+            well_obj.currentLiquidVolume += volume
+        else:
+            well_obj.currentLiquidVolume -= volume
 
 def requires_active_tool(func):
     """Decorator to ensure that a tool cannot complete an action unless it is the
