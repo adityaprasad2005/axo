@@ -4,7 +4,8 @@ import string
 from dataclasses import dataclass
 from itertools import chain
 from math import acos, cos, sin, sqrt
-from typing import Dict, Iterable, List, NamedTuple, Tuple, Union
+from typing import Dict, Iterable, List, NamedTuple, Tuple, Union 
+from datetime import datetime, timedelta
 
 import numpy as np
 
@@ -36,7 +37,9 @@ class Well:
     clean_tip: bool = False
     labware_name: str = None
     labware_obj: object = None 
-    currentLiquidVolume: float = 0
+    currentLiquidVolume: float = 0 
+    next_spectrum_recordtime: Union[datetime, None] = None 
+    num_readings_taken: int = 0
 
     @property
     def x(self):

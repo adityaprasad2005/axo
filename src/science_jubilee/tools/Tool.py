@@ -37,6 +37,20 @@ class Tool:
     # add a park tool method that every tool config can define to do things that need to be done pre or post parking
     # ex: make sure pipette has dropped tips before parking 
 
+
+    class OverridableError(Exception):
+        """ Custom exception that can be overridden by the user"""
+        def __init__(self, message):
+            self.message = message
+            super().__init__(self.message)
+
+        def ask_override(self):
+            """Ask the user if they want to override"""
+            print(f"Error : {self.message}")
+            choice = input("Do you want to override? (y/n): ").lower().strip()
+            bool_choice = choice in ['y', 'yes']
+            return bool_choice
+
     def lid_on_top_error_handling(self, location: Union[Well, Tuple, Location, Labware], expected_condition: bool):
         """Raise an error if the lid is on top of the tool.""" 
 
@@ -53,11 +67,17 @@ class Tool:
             pass
         else: 
             if labware.has_lid_on_top == True:
-                raise ToolStateError(f"{labware} Labware has lid on top")        # You can better this error handling with a overriding option to the user
+                error = self.OverridableError(f"Lid is on top of {labware}")
+                # raise ToolStateError(f"{labware} Labware has lid on top")        
             else:
-                raise ToolStateError(f"{labware} Labware has no lid on top")      # You can better this error handling with a overriding option to the user
-    
+                error = self.OverridableError(f"Lid is not on top of {labware}")
+                # raise ToolStateError(f"{labware} Labware has no lid on top")      
 
+            bool_override_choice = error.ask_override()
+            if bool_override_choice:
+                pass
+            else:
+                raise error
 
     def revert_lid_on_top(self, location: Union[Well, Tuple, Location, Labware]):
         """Revert the lid on top of the tool."""
@@ -86,13 +106,21 @@ class Tool:
         if is_dispense == True:                    # volume is to be dispensed at the location
             if well_obj.currentLiquidVolume + target_volume <= well_obj.totalLiquidVolume:
                 pass 
-            else:
-                raise ToolStateError(f"{well_obj} Well cannot accomodate {target_volume} ml dispense liquid volume ") 
+            else: 
+                error = self.OverridableError(f"{well_obj} Well cannot accomodate {target_volume} ml dispense liquid volume ")
+                # raise ToolStateError(f"{well_obj} Well cannot accomodate {target_volume} ml dispense liquid volume ") 
         else:                                      # volume is to be aspirated out of the location
             if well_obj.currentLiquidVolume - target_volume >= 0:
                 pass
-            else:
-                raise ToolStateError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ")
+            else: 
+                error = self.OverridableError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ")
+                # raise ToolStateError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ") 
+        
+        bool_override_choice = error.ask_override()
+        if bool_override_choice:
+            pass
+        else:
+            raise error
 
     def update_currentLiquidVolume(self, volume: float, location: Union[Well, Tuple, Location], is_dispense: bool):
         """Update the current liquid volume for the well at location.""" 

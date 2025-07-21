@@ -1,0 +1,60 @@
+{
+    
+    "slot2": {
+        "A1": {
+            "metal_precursor_vol" : 0 ,
+            "organic_precursor_vol" : 0 ,
+            "solvent_vol" : 0
+        },
+
+        "A2": {
+            "metal_precursor_vol" : 0 ,
+            "organic_precursor_vol" : 0 ,
+            "solvent_vol" : 0
+        }, 
+
+        "A3": {
+            "metal_precursor_vol" : 0 ,
+            "organic_precursor_vol" : 0 ,
+            "solvent_vol" : 0
+        }, 
+
+        "A4": {
+            "metal_precursor_vol" : 0 ,
+            "organic_precursor_vol" : 0 ,
+            "solvent_vol" : 0
+        }, 
+
+        "A5": {
+            "metal_precursor_vol" : 0 ,
+            "organic_precursor_vol" : 0 ,
+            "solvent_vol" : 0
+        }
+    }, 
+
+
+    "slot5": {
+        "A1": {
+            "metal_precursor_vol" : 0 ,
+            "organic_precursor_vol" : 0 ,
+            "solvent_vol" : 0
+        }
+    }, 
+
+
+
+    "spectrum_record_interval_mins" :10 ,  
+    "max_spectrum_records" : 18,
+
+
+
+    "Experiment" : { 
+            "operator_name" : "Aditya Prasad" , 
+            "experiment_name" : "MOF SYN", 
+            "experiment_date" : "20th July 2025", 
+            "experiment_time" : "10:00 AM", 
+            "experiment_description" : "Synthesis of MOFs", 
+            "approximate_time": "20 hours"
+    }
+
+}
