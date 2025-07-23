@@ -11,7 +11,6 @@ from typing import Tuple, Union
 import sys
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 sdk_path = r"C:\Program Files\Ocean Optics\OceanDirect SDK\Python"
 sys.path.insert(0, sdk_path)
@@ -26,10 +25,13 @@ except ImportError:
 from science_jubilee.labware.Labware import Labware, Location, Well
 from science_jubilee.tools.Tool import Tool, requires_active_tool
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 def _yaml_header(meta: Dict[str, object]) -> str:
     """Return a YAML‑style header string (every line starts with `# `) wrapped in
-    `# ---` barriers so it's visually distinct and YAML parsers can pick it
+    `# ---` barriers so it’s visually distinct and YAML parsers can pick it
     up with a trivial pre‑process that strips the leading "# ".
     """
     lines = ["# ---"]
@@ -37,7 +39,6 @@ def _yaml_header(meta: Dict[str, object]) -> str:
         lines.append(f"# {k}: {v}")
     lines.append("# ---")
     return "\n".join(lines) + "\n"
-
 
 def _parse_header(path: pathlib.Path) -> Tuple[Dict[str, str], int]:
     """Return (header_dict, header_line_count)."""
@@ -55,7 +56,6 @@ def _parse_header(path: pathlib.Path) -> Tuple[Dict[str, str], int]:
                 header[key.strip()] = val.strip()
     return header, line_count
 
-
 class Spectrometer(Tool, OceanDirectAPI):
     
     DEFAULT_DIR: pathlib.Path = pathlib.Path("Spectra")
@@ -63,20 +63,10 @@ class Spectrometer(Tool, OceanDirectAPI):
     def __init__(self, 
                  index, 
                  name, 
-                 base_dir: str | pathlib.Path,
-                 # Enhanced experiment identification - REQUIRED for MOF synthesis
-                 experiment_name: str,
-                 operator_name: str,
-                 target_compound: str | None = None,
-                 project_id: str | None = None,
-                 experiment_notes: str | None = None,
-                 sample_type: str = "MOF_synthesis",
-                 solvent: str = "methanol",
-                 temperature_c: float | None = None,
+                 base_dir:  str | pathlib.Path, 
                  plate_id: str | None = None,
                  ref_dark: str = "dark.npy",
                  ref_white: str = "white.npy"):
-        
         super().__init__(index, name)
         
         # ---------------------General Spectro Setup ------------------------#
@@ -85,54 +75,27 @@ class Spectrometer(Tool, OceanDirectAPI):
         self.ocean = OceanDirectAPI()
         self.spectrometer, self.device_id = self.open_spectrometer()
         
-        # Generate unique experiment ID with timestamp
-        timestamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.experiment_id = f"{experiment_name}_{operator_name}_{timestamp}"
+        # ---------------------Storage Hierarchy --------------------#
+        self.base_dir : pathlib.Path = (
+            pathlib.Path(base_dir).expanduser().resolve()
+            if base_dir is not None
+            else self.DEFAULT_DIR.resolve()
+        )
         
-        # ---------------------Enhanced Storage Hierarchy --------------------#
-        # Creates: base_dir/YYYY-MM-DD/operator_name/experiment_id/
-        self.base_dir = pathlib.Path(base_dir).expanduser().resolve()
-        self.base_dir.mkdir(parents=True, exist_ok=True)
+        self.base_dir.mkdir(parents = True, exist_ok= True)
         
-        # Organized by date/operator/experiment
-        date_str = dt.datetime.now().strftime("%Y-%m-%d")
-        self.experiment_dir = self.base_dir / date_str / operator_name / self.experiment_id
-        self.experiment_dir.mkdir(parents=True, exist_ok=True)
+        # Reference_Spectrum Folder
+        self.ref_dir: pathlib.Path = self.base_dir / "refs"
+        self.ref_dir.mkdir(exist_ok = True)
         
-        # Subdirectories for organization
-        self.spectra_dir = self.experiment_dir / "spectra"
-        self.refs_dir = self.experiment_dir / "references"
-        for d in [self.spectra_dir, self.refs_dir]:
-            d.mkdir(exist_ok=True)
-        
-        # Store comprehensive experiment metadata
-        self.experiment_metadata = {
-            "experiment_id": self.experiment_id,
-            "experiment_name": experiment_name,
-            "operator_name": operator_name,
-            "target_compound": target_compound,
-            "project_id": project_id,
-            "sample_type": sample_type,
-            "solvent": solvent,
-            "temperature_c": temperature_c,
-            "notes": experiment_notes,
-            "created_at": dt.datetime.now().isoformat(),
-            "instrument_serial": self.device_id,
-        }
-        
-        # Initialize MOF recipe storage
-        self.well_recipes = {}
-        
-        # Save experiment metadata immediately
-        self._save_experiment_metadata()
-        
-        # Update paths to use new structure
-        self.plate_id = plate_id or self.experiment_id
-        self.plate_dir = self.spectra_dir  # CSV files go in spectra/ subdirectory
-        
-        # -----------------Reference Filenames (White&Dark)-------------------------#
-        self._dark_path = self.refs_dir / ref_dark
-        self._white_path = self.refs_dir / ref_white
+        # ----------------- plate / path handling ---------------------#
+        self.plate_id : str = plate_id or dt.datetime.now().strftime("%Y%m%d")
+        self.plate_dir : pathlib.Path = self.base_dir / self.plate_id          # Spectra/20250527
+        self.plate_dir.mkdir(parents=True, exist_ok=True)
+
+        # -----------------Reference Filenames (White&Dark-------------------------#
+        self._dark_path = self.ref_dir / ref_dark
+        self._white_path = self.ref_dir / ref_white
         
         # Cached Dark/White Spectra
         self.dark : np.ndarray | None = None
@@ -149,102 +112,10 @@ class Spectrometer(Tool, OceanDirectAPI):
         
         logging.info("Opened Spectrometer %s", self.device_id)
     
-    # ------------------------- METHODS FOR ENHANCED LOGGING ----------------------------
-    
-    def _save_experiment_metadata(self):
-        """Save comprehensive experiment metadata to JSON file."""
-        metadata_file = self.experiment_dir / "experiment_metadata.json"
-        with metadata_file.open("w") as f:
-            json.dump(self.experiment_metadata, f, indent=2)
-    
-    def record_mof_recipe(self, 
-                         well_id: str,
-                         metal_precursor_name: str,
-                         metal_precursor_vol_ml: float,
-                         organic_precursor_name: str, 
-                         organic_precursor_vol_ml: float,
-                         solvent_name: str = "methanol",
-                         solvent_vol_ml: float = None,
-                         additional_notes: str = None):
-        """Store MOF synthesis recipe for a specific well."""
-        
-        recipe = {
-            "metal_precursor": {
-                "name": metal_precursor_name,
-                "volume_ml": metal_precursor_vol_ml
-            },
-            "organic_precursor": {
-                "name": organic_precursor_name, 
-                "volume_ml": organic_precursor_vol_ml
-            },
-            "solvent": {
-                "name": solvent_name,
-                "volume_ml": solvent_vol_ml
-            },
-            "total_volume_ml": metal_precursor_vol_ml + organic_precursor_vol_ml + (solvent_vol_ml or 0),
-            "molar_ratio": f"{metal_precursor_vol_ml}:{organic_precursor_vol_ml}",
-            "preparation_time": dt.datetime.now().isoformat(),
-            "notes": additional_notes
-        }
-        
-        # Store recipe for this well
-        self.well_recipes[well_id] = recipe
-        
-        # Save all recipes to JSON file
-        recipe_file = self.experiment_dir / "mof_recipes.json"
-        with recipe_file.open("w") as f:
-            json.dump(self.well_recipes, f, indent=2)
-    
-    def _get_enhanced_metadata(self, well_id: str, additional_meta: Dict = None) -> Dict:
-        """Generate comprehensive metadata for each measurement."""
-        base_meta = {
-            # Experiment information
-            **self.experiment_metadata,
-            
-            # Measurement-specific information
-            "measurement_timestamp": dt.datetime.now().isoformat(),
-            "well_id": well_id,
-            "slot": str(self.current_location) if self.current_location else "unknown",
-            
-            # Instrument settings
-            "pixels": len(self.spectrometer.get_wavelengths()) if hasattr(self, 'spectrometer') else 0,
-            "integration_time_us": self.spectrometer.get_integration_time() if hasattr(self.spectrometer, 'get_integration_time') else 0,
-            "scans_averaged": getattr(self.spectrometer, 'get_scans_to_average', lambda: 0)(),
-            "boxcar_width": getattr(self.spectrometer, 'get_boxcar_width', lambda: 0)(),
-            
-            # Reference spectra information
-            "dark_id": self.dark_id,
-            "white_id": self.white_id,
-            
-            # Units
-            "wavelength_unit": "nm",
-            "absorbance_unit": "AU",
-        }
-        
-        # Add MOF recipe if available for this well
-        if well_id in self.well_recipes:
-            recipe = self.well_recipes[well_id]
-            base_meta.update({
-                "metal_precursor_name": recipe["metal_precursor"]["name"],
-                "metal_precursor_vol_ml": recipe["metal_precursor"]["volume_ml"],
-                "organic_precursor_name": recipe["organic_precursor"]["name"], 
-                "organic_precursor_vol_ml": recipe["organic_precursor"]["volume_ml"],
-                "solvent_name": recipe["solvent"]["name"],
-                "solvent_vol_ml": recipe["solvent"]["volume_ml"],
-                "total_volume_ml": recipe["total_volume_ml"],
-                "molar_ratio": recipe["molar_ratio"],
-                "preparation_time": recipe["preparation_time"]
-            })
-        
-        # Add any additional metadata
-        if additional_meta:
-            base_meta.update(additional_meta)
-        
-        return base_meta
-    
     # ------------------------- Device Management -------------------------------------------------------------------
     def find_spectrometers(self):
         """Probe and return list of device IDs."""
+
         count = self.ocean.find_devices()
         if count == 0:
             raise RuntimeError("No Ocean Insight Spectrometers Detected")
@@ -269,15 +140,20 @@ class Spectrometer(Tool, OceanDirectAPI):
                        integration_time_us : int = 10000, 
                        scans_to_avg : int = 50,
                        boxcar_width : int = 50):
-        """Configure spectrometer acquisition parameters."""
+        """
+        integration_time_us :
+        scans_to_avg :
+        boxcar_width : 
+        """
         self.spectrometer.set_integration_time(integration_time_us)
         self.spectrometer.set_scans_to_average(scans_to_avg)
         self.spectrometer.set_boxcar_width(boxcar_width)
     
+    
     def lamp_shutter(self, open: bool = False):
         """Open/close internal lamp shutter if the device supports it."""
         
-        state = "Open" if open else "Close"
+        state = "Close" if open else "Open"
         try:
             self.spectrometer.Advanced.set_enable_lamp(open)
             if self.spectrometer.Advanced.get_enable_lamp() == open:
@@ -289,10 +165,11 @@ class Spectrometer(Tool, OceanDirectAPI):
     
     # -------------------------- RAW ACQUISITION -----------------------#
     def measure_raw_spectrum(self):
-        """Acquire raw spectrum from spectrometer."""
+        
         wl = np.array(self.spectrometer.get_wavelengths())
         vals = np.array(self.spectrometer.get_formatted_spectrum())
         
+        # Always returns the same wavelength-axis UV-Vis spectrum
         return wl, vals
     
     @staticmethod
@@ -304,6 +181,7 @@ class Spectrometer(Tool, OceanDirectAPI):
         """
         Compute absorbance spectrum from raw intensities:
         A(λ) = -log10( (I_sample - I_dark) / (I_white - I_dark) )
+        eps is added to denominator to avoid divide-by-zero.
         """
         # dark-correct
         sample_dc = sample_vals - dark_vals
@@ -318,20 +196,16 @@ class Spectrometer(Tool, OceanDirectAPI):
     #---------------------------------------- CSV Helper ----------------------------------------#
     
     def _csv_path(self, well_id : str | np.str_) -> pathlib.Path:
-        """Get path for CSV file for a specific well."""
-        return self.plate_dir / f"{str(well_id)}.csv"
+        """Spectra/<well_id>.csv"""
+        return self.plate_dir / f"{str(well_id)}.csv" # spectra/…/A1.csv
     
-    def _ensure_file(self, path: pathlib.Path, well_id: str, meta: Dict[str, object] = None):
-        """Create CSV file with comprehensive header if it does not exist."""
+    def _ensure_file(self, path: pathlib.Path, meta: Dict[str, object]):
+        """Create file with header if it does not exist."""
         if path.exists():
             return
-        
-        # Generate comprehensive metadata including MOF recipe
-        enhanced_meta = self._get_enhanced_metadata(well_id, meta or {})
-        
-        # Create file with YAML header and CSV column headers
-        header_content = _yaml_header(enhanced_meta) + "time_min,wavelength_nm,absorbance\n"
-        path.write_text(header_content)
+        # add plate_id to header
+        meta = {"plate_id": self.plate_id, **meta}
+        path.write_text(_yaml_header(meta) + "time_min,wavelength_nm,absorbance\n")
     
     @staticmethod
     def read_spectrum_csv(path: str | pathlib.Path) -> Tuple[Dict[str, str], pd.DataFrame]:
@@ -342,6 +216,7 @@ class Spectrometer(Tool, OceanDirectAPI):
         return meta, df
    
     
+    
     # -------------------------CSV append ------------------------------------#
     
     def _append_spectrum_csv(self,
@@ -349,47 +224,51 @@ class Spectrometer(Tool, OceanDirectAPI):
         time_min: int,
         wl: np.ndarray,
         absorbance: np.ndarray,
-        meta: Dict[str, object] = None,
+        meta: Dict[str, object],
     ) -> None:
-        """Append spectrum data to CSV file."""
         
         path = self._csv_path(well_id)
         col_name = f"{time_min} min"
 
-        # 1) Read existing file or create new DataFrame
+        # 1) read existing (header + DF)
         if path.exists():
             header_dict, header_lines = _parse_header(path)
             df = pd.read_csv(path, comment="#", index_col="wavelength_nm")
         else:
-            # Create new file with comprehensive metadata
-            self._ensure_file(path, well_id, meta)
+            header_dict = {"plate_id": self.plate_id, **meta}
+            header_lines = 0
             df = pd.DataFrame(index=np.round(wl, 1))
 
-        # 2) Add new time column
+        # 2) update column & header (header only on *first* creation)
         df[col_name] = absorbance
 
-        # 3) Write back to file (preserving header)
-        if path.exists():
-            # Keep existing header, just update data
-            header_dict, header_lines = _parse_header(path)
-            header_content = _yaml_header(header_dict)
+        if not path.exists():
+            header_text = _yaml_header(header_dict)
+            with path.open("w", newline="") as fh:
+                fh.write(header_text)
+                df.to_csv(fh, index_label="wavelength_nm")
         else:
-            # This shouldn't happen since we called _ensure_file above
-            enhanced_meta = self._get_enhanced_metadata(well_id, meta or {})
-            header_content = _yaml_header(enhanced_meta)
-
-        # Write header + data
-        with path.open("w") as f:
-            f.write(header_content)
-            f.write("wavelength_nm," + ",".join(df.columns) + "\n")
-            df.to_csv(f, header=False, lineterminator= "\n")
-
+            # overwrite file but keep original header block verbatim
+            with path.open("r+") as fh:
+                lines = fh.readlines()
+            body = "".join(lines[header_lines:])  # skip old body
+            with path.open("w", newline="") as fh:
+                fh.writelines(lines[:header_lines])  # unchanged header
+                df.to_csv(fh, index_label="wavelength_nm")
     # ------------------------- Move Spectrometer ---------------------------------- #
-    
+    # ------------------------- Data Collection ------------------------------------ #
     @requires_active_tool
     def position_probe(self,
                        location: Union[Well, Tuple, Location]) -> None:
-        """Move the spectrometer probe above `location` and update `self.current_well`."""
+        """
+        Move the spectrometer probe above `location` and update `self.current_well`.
+
+        Notes
+        -----
+        Safe-Z retract, XY move, then Z plunge (same pattern you used before).  
+        Stores both `self.current_well` and `self.current_location` so that
+        subsequent data-only calls can use that context.
+        """ 
 
         # Error handling to check if the labware at location has lid or not
         self.lid_on_top_error_handling(location, expected_condition = False)
@@ -414,7 +293,9 @@ class Spectrometer(Tool, OceanDirectAPI):
 
     @requires_active_tool
     def wash_probe(self, wash_loc : Union[Well, Tuple, Location], n_cycles : int = 2):
-        """Wash the probe with the supplied location."""
+        """
+        Wash the probe with the supplied location.
+        """
         for i in range(n_cycles):
             self.position_probe(wash_loc)
 
@@ -425,7 +306,7 @@ class Spectrometer(Tool, OceanDirectAPI):
                          elapsed_min : int,
                          open : bool | None = None,
                          save: bool = False): 
-        """Collect spectrum at specified location and optionally save to CSV."""
+        
 
         self.position_probe(location)
         
@@ -459,32 +340,41 @@ class Spectrometer(Tool, OceanDirectAPI):
                 well_id, elapsed_min, wl, absorbance, meta
             )
         
+    
         return wl, vals, absorbance
 
     
     #------------------ Reference Spectrum Setup with recall ----------------------#
     def _latest_ref(self, prefix: str) -> pathlib.Path | None:
         """Return Path to the newest '<prefix>_YYYYmmdd_HHMMSS.npy' file."""
-        files = sorted(self.refs_dir.glob(f"{prefix}_*.npy"))
-        return files[-1] if files else None
+        files = sorted(self.plate_dir.glob(f"{prefix}_*.npy"))
+        return files[-1] if files else None # If at least one match was found, return the last element (newest). Otherwise return None
 
     def set_dark(self, n_avg: int = 5):
         """Capture dark spectrum; store with an ID timestamp."""
+        # wl, vals = zip(*(self.measure_raw_spectrum() for _ in range(n_avg)))
+        # # 5 time measures and take the means of the intensity axis
+        # self.dark  = np.mean(vals, axis=0)
         wl, vals = self.measure_raw_spectrum()
         dark_data = np.column_stack((wl, vals))
         self.dark = vals
         self.dark_id  = f"dark_{dt.datetime.now():%Y%m%d_%H%M%S}"
-        self._dark_path = self.refs_dir / f"{self.dark_id}.npy"
+        self._dark_path = self.ref_dir / f"{self.dark_id}.npy"
+        # np.save(self._dark_path, self.dark)
         np.save(self._dark_path, dark_data)
         return self.dark_id
 
     def set_white(self, n_avg: int = 5):
         """Capture white (reference) spectrum; store with an ID timestamp."""
+        # 5 time measures and take the means of the intensity axis
+        # wl, vals = zip(*(self.measure_raw_spectrum() for _ in range(n_avg)))
+        # self.white = np.mean(vals, axis=0)
         wl, vals = self.measure_raw_spectrum()
         white_data = np.column_stack((wl, vals))
         self.white = vals
         self.white_id = f"white_{dt.datetime.now():%Y%m%d_%H%M%S}"
-        self._white_path = self.refs_dir / f"{self.white_id}.npy"
+        self._white_path = self.ref_dir / f"{self.white_id}.npy"
+        # np.save(self._white_path, self.white)
         np.save(self._white_path, white_data)
         return self.white_id
     
@@ -518,6 +408,7 @@ class Spectrometer(Tool, OceanDirectAPI):
             self.white     = np.load(legacy_w)
             self.dark_id   = legacy_d.stem
             self.white_id  = legacy_w.stem
+            #self._dark_path, self._white_path = legacy_d, legacy_w
     
     
     # ---------------------------------------------------- Storage management -
@@ -526,8 +417,8 @@ class Spectrometer(Tool, OceanDirectAPI):
         self.base_dir = pathlib.Path(new_root).expanduser().resolve()
         self.base_dir.mkdir(parents=True, exist_ok=True)
         
-        self.refs_dir = self.base_dir / "references"
-        self.refs_dir.mkdir(exist_ok = True)
+        self.ref_dir = self.base_dir / "ref"
+        self.ref_dir.mkdir(exist_ok = True)
         
         self.plate_dir = self.base_dir / self.plate_id
         self.plate_dir.mkdir(parents=True, exist_ok=True)
@@ -538,8 +429,10 @@ class Spectrometer(Tool, OceanDirectAPI):
                   elapsed_min: int = 15,
                   save_plot: bool = False,
                   show_plot: bool = True,
-                  figsize: Tuple[int, int] = (10, 6)) -> Tuple[np.ndarray, np.ndarray]:
-        """Plot absorbance spectrum for a given location/well."""
+                  figsize: Tuple[int, int] = (10, 6)) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """
+        Plot absorbance spectrum for a given location/well.
+        """
 
         # Determine well_id from location
         if isinstance(location, Well):
@@ -602,3 +495,5 @@ class Spectrometer(Tool, OceanDirectAPI):
                 plt.close()
 
         return wavelengths, absorbance
+
+    

@@ -63,21 +63,25 @@ class Tool:
         elif isinstance(location, Labware):
             labware = location
 
+        bool_override_choice = True 
+
         if labware.has_lid_on_top == expected_condition:
             pass
         else: 
             if labware.has_lid_on_top == True:
                 error = self.OverridableError(f"Lid is on top of {labware}")
-                # raise ToolStateError(f"{labware} Labware has lid on top")        
+                # raise ToolStateError(f"{labware} Labware has lid on top")  
+                bool_override_choice = error.ask_override()      
             else:
                 error = self.OverridableError(f"Lid is not on top of {labware}")
-                # raise ToolStateError(f"{labware} Labware has no lid on top")      
+                # raise ToolStateError(f"{labware} Labware has no lid on top")  
+                bool_override_choice = error.ask_override()    
 
-            bool_override_choice = error.ask_override()
-            if bool_override_choice:
-                pass
-            else:
-                raise error
+            
+        if bool_override_choice:
+            pass
+        else:
+            raise error
 
     def revert_lid_on_top(self, location: Union[Well, Tuple, Location, Labware]):
         """Revert the lid on top of the tool."""
@@ -102,6 +106,8 @@ class Tool:
         elif isinstance(location, Location):
             well_obj = location._labware
 
+        bool_override_choice = True
+
         # Check if the well has enough liquid to aspirate or dispense the target_volume
         if is_dispense == True:                    # volume is to be dispensed at the location
             if well_obj.currentLiquidVolume + target_volume <= well_obj.totalLiquidVolume:
@@ -109,14 +115,15 @@ class Tool:
             else: 
                 error = self.OverridableError(f"{well_obj} Well cannot accomodate {target_volume} ml dispense liquid volume ")
                 # raise ToolStateError(f"{well_obj} Well cannot accomodate {target_volume} ml dispense liquid volume ") 
+                bool_override_choice = error.ask_override()
         else:                                      # volume is to be aspirated out of the location
             if well_obj.currentLiquidVolume - target_volume >= 0:
                 pass
             else: 
                 error = self.OverridableError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ")
                 # raise ToolStateError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ") 
+                bool_override_choice = error.ask_override()
         
-        bool_override_choice = error.ask_override()
         if bool_override_choice:
             pass
         else:

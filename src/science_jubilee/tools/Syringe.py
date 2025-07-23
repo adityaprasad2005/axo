@@ -296,7 +296,7 @@ class Syringe(Tool):
         self._machine.move_to(z=z)
         
         for i in range(0, num_cycles):
-            self._aspirate(vol, s=s)
+            self._aspirate(vol, location=loc, s=s)
             self._dispense(vol, sample_loc=loc, s=s)   # No need to provide refill_loc bcz there just has been aspiration of the same amount of liquid into the syringe
 
     @requires_active_tool 

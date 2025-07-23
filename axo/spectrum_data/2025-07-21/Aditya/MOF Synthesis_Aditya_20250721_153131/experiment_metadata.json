@@ -1,0 +1,13 @@
+{
+  "experiment_id": "MOF Synthesis_Aditya_20250721_153131",
+  "experiment_name": "MOF Synthesis",
+  "operator_name": "Aditya",
+  "target_compound": "MOF",
+  "project_id": "MOF_Phase1",
+  "sample_type": "MOF_synthesis",
+  "solvent": "methanol",
+  "temperature_c": 25,
+  "notes": "",
+  "created_at": "2025-07-21T15:31:31.169508",
+  "instrument_serial": 2
+}
