@@ -182,8 +182,8 @@ class Spectrometer(Tool, OceanDirectAPI):
                 "volume_ml": solvent_vol_ml
             },
             "total_volume_ml": metal_precursor_vol_ml + organic_precursor_vol_ml + (solvent_vol_ml or 0),
-            "molar_ratio": f"{metal_precursor_vol_ml}:{organic_precursor_vol_ml}",
-            "preparation_time": dt.datetime.now().isoformat(),
+            # "molar_ratio": f"{metal_precursor_vol_ml}:{organic_precursor_vol_ml}",
+            # "preparation_time": dt.datetime.now().isoformat(),
             "notes": additional_notes
         }
         
@@ -231,9 +231,9 @@ class Spectrometer(Tool, OceanDirectAPI):
                 "organic_precursor_vol_ml": recipe["organic_precursor"]["volume_ml"],
                 "solvent_name": recipe["solvent"]["name"],
                 "solvent_vol_ml": recipe["solvent"]["volume_ml"],
-                "total_volume_ml": recipe["total_volume_ml"],
-                "molar_ratio": recipe["molar_ratio"],
-                "preparation_time": recipe["preparation_time"]
+                "total_volume_ml": recipe["total_volume_ml"]
+                # "molar_ratio": recipe["molar_ratio"],
+                # "preparation_time": recipe["preparation_time"]
             })
         
         # Add any additional metadata

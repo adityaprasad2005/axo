@@ -163,6 +163,20 @@ class DoubleSyringe(Tool):
         # Aspirated_Volume 
         Aspirated_Volume = actual_mm / self.mm_to_ml 
 
+        # Since while doing all the dispense_e0() and dispense_e1() calls, the refill_loc is given out to be precursors[0] well obj, instead of precursors[1] well obj. Hence we are reverting it here.
+        if drive == self.e0_drive: 
+            # pick out the well obj of the loc parameter 
+            if isinstance(loc, Well):
+                well_obj = loc 
+            elif isinstance(loc, Location):
+                well_obj = loc._labware
+            
+            # Get the precursor[1] well obj from the precursors[0] well obj and update the location of the well obj 
+            labware_obj = well_obj.labware_obj
+            loc_update = labware_obj['A2'] # precursors[1] well obj
+
+            loc = loc_update
+
         # update the currentLiquidVolume for the well at loc 
         self.update_currentLiquidVolume(volume= Aspirated_Volume, location = loc, is_dispense = False)
 
@@ -361,6 +375,7 @@ class DoubleSyringe(Tool):
                 self._machine.move(de1=travel_mm, s = s, wait=True)
             
             Dispensed_Volume = abs(travel_mm) / self.mm_to_ml 
+
 
             # update the currentLiquidVolume of the well at loc 
             self.update_currentLiquidVolume(volume= Dispensed_Volume, location = loc, is_dispense = True)

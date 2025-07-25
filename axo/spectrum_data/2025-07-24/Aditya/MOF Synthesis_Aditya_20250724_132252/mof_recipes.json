@@ -1,0 +1,20 @@
+{
+  "slot2_A1": {
+    "metal_precursor": {
+      "name": "Fe_in_methanol",
+      "volume_ml": 4
+    },
+    "organic_precursor": {
+      "name": "Mn",
+      "volume_ml": 3
+    },
+    "solvent": {
+      "name": "methanol",
+      "volume_ml": 2
+    },
+    "total_volume_ml": 9,
+    "molar_ratio": "4:3",
+    "preparation_time": "2025-07-24T13:23:11.603946",
+    "notes": null
+  }
+}

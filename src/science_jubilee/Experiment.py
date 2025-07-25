@@ -61,7 +61,7 @@ class Experiment:
 
         # Tools
         self.single_syringe = self.all_tools["single_syringe"]
-        self.double_syringe = self.all_tools["double_syringe"]
+        self.dual_syringe = self.all_tools["dual_syringe"]
         self.gripper = self.all_tools["gripper"]
         self.spectrometer = self.all_tools["spectrometer"]
 
@@ -106,6 +106,10 @@ class Experiment:
         5. Record spectrum readings at regular intervals for all the vials
 
         """ 
+        axo = self.machine
+        precursors = self.precursors
+        solvents = self.solvents
+
 
         with open(file_name, "r") as f:
             self.data = json.load(f)
@@ -114,15 +118,26 @@ class Experiment:
         self.spectrum_record_interval_mins = self.data["spectrum_record_interval_mins"] 
         self.max_spectrum_records = self.data["max_spectrum_records"] 
 
+
         # Add assert statement that self.spectrum_record_interval_mins is greater than the estimated self.make_vial_time_mins !!
         assert self.spectrum_record_interval_mins  > self.make_vial_time_mins, "Spectrum record interval should be greater than approx make_vial time. Otherwise, the spectrum records will be missed for the initial vials of the batch."
 
+        # Parse all the slot names from the json 
         self.slot_names = []
         for k in self.data.keys():
             k = k.lower().strip()
             if k[:4]=="slot":
-                 self.slot_names.append(k)
+                 self.slot_names.append(k) 
 
+        # Save the vial recipes (optional)
+        self.save_vial_recipes()  
+
+        # Record the spectrometer reference spectrum if needed 
+        if self.need_spectrum_refs:
+            self.record_spectrum_refs() 
+            self.need_spectrum_refs = False
+        else: 
+            pass 
 
         # Step 1. Fill Dual syringe with precursors
         self.fill_dual_syringe()  
@@ -155,18 +170,50 @@ class Experiment:
 
                 # We need to sleep for 2 minutes after making each vial. This is an essential step so that the synthesis of vials don't stagnate after some time. Otherwise, For example after synthesising 4 vials, the synthesis of 5th vial wont happen bcz the next_record_spectrum will be repeatedly called up for the initially synthesised vials. 
                 if is_any_reading_taken == False:
-                    time.sleep(self.record_spectrum_time_mins*60)
+                    time.sleep(self.record_spectrum_time_mins*60) 
+            
+        # Reset the dual syringe 
+        self.reset_dual_syringe()
+        
+        # Put lid on top of the precursors, now that all the vials have been synthesised 
+        if precursors.has_lid_on_top == False: 
+            self.gripper_pick_and_place(slot_from= 4, slot_to= 1)
 
         # Step 5. Record spectrum till the end of the experiment 
         self.record_spectrum_till_end()
 
+    def save_vial_recipes(self):
+        """
+        Function is used to save all the vial recipes in a mof_recipes.json file
+        """
+
+        # Parse the chemical names from the json  
+        self.metal_precursor_name = self.data["Experiment"]["metal_precursor_name"]
+        self.organic_precursor_name = self.data["Experiment"]["organic_precursor_name"]
+        self.solvent_name = self.data["Experiment"]["solvent_name"]
+
+        # Save the vial recipes in a mof_recipes.json file by looping over all the vials one by one
+        # Loop over all the slots 
+        for slot_name in self.slot_names: 
+            slot = int(slot_name[4:]) if slot_name[4:].isdigit() else slot_name[4:]
+
+            all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
+
+            # Loop over all the vials in the slot
+            for vial_name, vial_param in all_vials.items(): 
+                # slot_and_vial_name = slot_name + "_" + vial_name
+                metal_precursor_vol = vial_param["metal_precursor_vol"]
+                organic_precursor_vol = vial_param["organic_precursor_vol"]
+                solvent_vol = vial_param["solvent_vol"] 
+
+                self.spectrometer.record_mof_recipe(well_id= vial_name , metal_precursor_name= self.metal_precursor_name, metal_precursor_vol_ml = metal_precursor_vol, organic_precursor_name= self.organic_precursor_name, organic_precursor_vol_ml = organic_precursor_vol, solvent_name= self.solvent_name, solvent_vol_ml= solvent_vol, additional_notes= slot_name)
 
     def fill_dual_syringe(self):
         """
         Function to fill the dual syringe with dye
         """
         axo = self.machine 
-        dual_syringe = self.double_syringe 
+        dual_syringe = self.dual_syringe 
         precursors = self.precursors  
 
         # Lid on top error handling 
@@ -179,22 +226,23 @@ class Experiment:
         axo.pickup_tool(dual_syringe)
         print("Picked Up Dual Syringe")
 
+        # No need for resetting, bcz the machine is by-deault in its zero position 
         # Reset the positions of the dual syringe on top of the precursor beakers
-        drive0 = dual_syringe.e0_drive
-        current_pos0 = float(dual_syringe._machine.get_position()[drive0])
-        headroom_mm0 = current_pos0 - dual_syringe.min_range
-        headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
-        dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[1], s=500)
-        current_pos = float(dual_syringe._machine.get_position()[drive0])
-        print("Dual Syringe Drive 0 reset and position:", current_pos)
+        # drive0 = dual_syringe.e0_drive
+        # current_pos0 = float(dual_syringe._machine.get_position()[drive0])
+        # headroom_mm0 = current_pos0 - dual_syringe.min_range
+        # headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
+        # dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
+        # current_pos = float(dual_syringe._machine.get_position()[drive0])
+        # print("Dual Syringe Drive 0 reset and position:", current_pos)
 
-        drive1 = dual_syringe.e1_drive
-        current_pos1 = float(dual_syringe._machine.get_position()[drive1])
-        headroom_mm1 = current_pos1 - dual_syringe.min_range
-        headroom_ml1 = headroom_mm1 / dual_syringe.mm_to_ml
-        dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
-        current_pos = float(dual_syringe._machine.get_position()[drive1])
-        print("Dual Syringe Drive 1 reset and position:", current_pos)
+        # drive1 = dual_syringe.e1_drive
+        # current_pos1 = float(dual_syringe._machine.get_position()[drive1])
+        # headroom_mm1 = current_pos1 - dual_syringe.min_range
+        # headroom_ml1 = headroom_mm1 / dual_syringe.mm_to_ml
+        # dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
+        # current_pos = float(dual_syringe._machine.get_position()[drive1])
+        # print("Dual Syringe Drive 1 reset and position:", current_pos)
 
         # Refill both the syringe one by one
         dual_syringe.refill(drive = dual_syringe.e0_drive, refill_loc = precursors[0].top(-54), s = 100)
@@ -207,6 +255,48 @@ class Experiment:
         # Park the dual syringe
         axo.park_tool()
         print("Parked Dual Syringe") 
+
+        # Place lid over the precursors 
+        if precursors.has_lid_on_top == False: 
+            self.gripper_pick_and_place(slot_from= 4, slot_to= 1)  
+    
+    def reset_dual_syringe(self):
+        """
+        Function to reset the dual syringe
+        """
+        axo = self.machine 
+        dual_syringe = self.dual_syringe 
+        precursors = self.precursors 
+
+        # Lid on top error handling 
+        if precursors.has_lid_on_top == True: 
+            self.gripper_pick_and_place(slot_from= 1, slot_to= 4) 
+        else:
+            pass 
+        
+        # Pick up the dual syringe
+        axo.pickup_tool(dual_syringe)
+        print("Picked Up Dual Syringe")
+
+        drive0 = dual_syringe.e0_drive
+        current_pos0 = float(dual_syringe._machine.get_position()[drive0])
+        headroom_mm0 = current_pos0 - dual_syringe.min_range
+        headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
+        dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
+        current_pos = float(dual_syringe._machine.get_position()[drive0])
+        print("Dual Syringe Drive 0 reset and position:", current_pos)
+
+        drive1 = dual_syringe.e1_drive
+        current_pos1 = float(dual_syringe._machine.get_position()[drive1])
+        headroom_mm1 = current_pos1 - dual_syringe.min_range
+        headroom_ml1 = headroom_mm1 / dual_syringe.mm_to_ml
+        dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
+        current_pos = float(dual_syringe._machine.get_position()[drive1])
+        print("Dual Syringe Drive 1 reset and position:", current_pos) 
+
+        # Park the dual syringe
+        axo.park_tool()
+        print("Parked Dual Syringe")  
 
         # Place lid over the precursors 
         if precursors.has_lid_on_top == False: 
@@ -319,7 +409,7 @@ class Experiment:
 
         # Lid on top error handling 
         if precursors.has_lid_on_top == True: 
-            self.gripper_pick_and_place(slot_from= 3, slot_to= 4) 
+            self.gripper_pick_and_place(slot_from= 1, slot_to= 4) 
         else:
             pass 
 
@@ -327,6 +417,8 @@ class Experiment:
         # Pickup the dual_syringe
         axo.pickup_tool(dual_syringe)
         print("Picked Up Dual Syringe")
+
+        # print("Precursors[1] liquid level before dispense:", precursors[1].currentLiquidVolume)
 
         # Loop over all the slots
         for slot_name in self.slot_names: 
@@ -355,19 +447,24 @@ class Experiment:
                 time.sleep(10)  
                 print(f"Vial {vial_name} on Slot {slot} filled with {metal_precursor_vol} ml metal precursor ") 
 
+                # print("Precursors[1] liquid level after dispense:", precursors[1].currentLiquidVolume) 
+
                 # update the currentLiquidVolume for other Well objects
                 dual_syringe.update_currentLiquidVolume(volume= metal_precursor_vol, location= sample_labware_ssy[vial_name], is_dispense=True )
                 dual_syringe.update_currentLiquidVolume(volume= metal_precursor_vol, location= sample_labware_spec[vial_name], is_dispense=True ) 
 
+        # print("Precursors[1] liquid level before reset:", precursors[1].currentLiquidVolume)
 
-        # Reset the dual syringe:0 position before parking. We wont be using it later on. 
+        # Reset the dual syringe:0 before parking. We wont be using it later on. 
         drive0 = dual_syringe.e0_drive
         current_pos0 = float(dual_syringe._machine.get_position()[drive0])
         headroom_mm0 = current_pos0 - dual_syringe.min_range
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
-        dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[1], s=500)
+        dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
         current_pos = float(dual_syringe._machine.get_position()[drive0])
         print("Dual Syringe Drive 0 reset and position:", current_pos)
+
+        # print("Precursors[1] liquid level after reset:", precursors[1].currentLiquidVolume)
 
         # Park the dual syringe 
         axo.park_tool()
@@ -398,7 +495,7 @@ class Experiment:
 
         axo = self.machine
         single_syringe = self.single_syringe
-        dual_syringe = self.double_syringe
+        dual_syringe = self.dual_syringe
         solvents = self.solvents 
         precursors = self.precursors
 
@@ -467,7 +564,7 @@ class Experiment:
         axo = self.machine
 
         # Loop through all the vials and see which one has the nearest next_spectrum_recordtime attribute 
-        smallest_timediff = timedelta(minutes= np.inf)
+        smallest_timediff = timedelta(minutes= 10000)
         
         # Loop through all the slots
         for slot_name in self.slot_names:
@@ -491,8 +588,8 @@ class Experiment:
 
                 vial_well_obj = sample_labware_sy[vial_name]
 
-                if vial_well_obj["next_spectrum_recordtime"] is not None:
-                    time_diff = vial_well_obj["next_spectrum_recordtime"] - datetime.now()       
+                if vial_well_obj.next_spectrum_recordtime is not None:
+                    time_diff = vial_well_obj.next_spectrum_recordtime - datetime.now()       
                     # If somehow a vial's next_spectrum_recordtime is in the past, then its timediff will be the most negative. And accordingly it will be given the utmost priority. 
 
                     if time_diff < smallest_timediff:
@@ -531,7 +628,7 @@ class Experiment:
             vial_well_obj = sample_labware_spec[next_vial]
 
             # Calculate the time difference between the current time and the next_spectrum_recordtime
-            timediff = self.data[f"slot{next_slot}"][next_vial]["next_spectrum_recordtime"] - datetime.now()
+            timediff = vial_well_obj.next_spectrum_recordtime - datetime.now()
 
             # Check if we can make another vial or if we urgently need to record the nearest spectrum recording 
             if timediff < timedelta(minutes = self.make_vial_time_mins): 
@@ -539,7 +636,7 @@ class Experiment:
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
                     time_now = datetime.now()
 
-                    if time_now >= vial_well_obj["next_spectrum_recordtime"]- timedelta(seconds= 18):
+                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 18):
                         self.record_spectrum(next_slot, next_vial) 
                         is_any_reading_taken = True
                         break
@@ -572,22 +669,23 @@ class Experiment:
             sample_labware_ssy = self.samples5_ssy
             sample_labware_spec = self.samples5_spec
 
+
         # Lid on top error handling 
         if sample_labware_spec.has_lid_on_top == True: 
             self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
+        else:
+            pass 
+
+
+        # Lid on top error handling 
+        if solvents.has_lid_on_top == True:
+            self.gripper_pick_and_place(slot_from= 3, slot_to= 4)
         else:
             pass
 
         # Pickup the spectrometer 
         axo.pickup_tool(spectrometer)
         print("Picked Up Spectrometer") 
-
-        # Record the spectrometer reference spectrum if needed 
-        if self.need_spectrum_refs:
-            self.record_spectrum_refs()
-            self.need_spectrum_refs = False
-        else: 
-            pass 
 
         # change the num_readings_taken attribute for all the Well objects 
         sample_labware_sy[vial_name].num_readings_taken += 1
@@ -597,8 +695,8 @@ class Experiment:
         # Record the spectrum for the given vial 
         elapsed_min = (sample_labware_spec[vial_name].num_readings_taken -1)* self.spectrum_record_interval_mins
 
-        wavelengths, vals, absorbance = spectrometer.collect_spectrum(sample_labware_spec[vial_name].top(-45), 0, save= True)
-        spectrometer.plot_spectrum(sample_labware_spec[vial_name].top(-40), elapsed_min= elapsed_min , show_plot=True, save_plot=True)  
+        wavelengths, vals, absorbance = spectrometer.collect_spectrum(sample_labware_spec[vial_name].top(-52), elapsed_min= elapsed_min, save= True)
+        spectrometer.plot_spectrum(sample_labware_spec[vial_name].top(-52), elapsed_min= elapsed_min , show_plot=True, save_plot=True)  
         print(f"Spectrum recorded for vial {vial_name} on Slot {slot} at {elapsed_min} mins") 
 
         # update the next_spectrum_recordtime for all the Well objects 
@@ -612,7 +710,14 @@ class Experiment:
 
         # Park the spectrometer 
         axo.park_tool() 
-        print("Parked Spectrometer ")
+        print("Parked Spectrometer ") 
+
+
+        # revert the lid on top of the solvents 
+        if solvents.has_lid_on_top == False:
+            self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
+        else:
+            pass
 
 
     def record_spectrum_refs(self):
@@ -623,6 +728,13 @@ class Experiment:
         spectrometer = self.spectrometer
         solvents = self.solvents 
 
+        # Lid on top error handling 
+        if solvents.has_lid_on_top == True: 
+            self.gripper_pick_and_place(slot_from= 3, slot_to= 4) 
+
+        axo.pickup_tool(spectrometer)
+        print("Picked Up Spectrometer")
+
         spectrometer.position_probe(solvents[1].top(-35)) 
         print(f"Positioned Probe to collect the dark reference spectrum. \nKindly switch off the probe light")
         choice = input("Press any key to continue: ")
@@ -632,7 +744,17 @@ class Experiment:
         print("Kindly switch on the probe light")
         choice = input("Press any key to continue: ")
         print("Recording white reference spectrum")
-        spectrometer.set_white()
+        spectrometer.set_white() 
+
+        spectrometer.configure_device()
+        print("Configured Spectrometer")
+
+        axo.park_tool() 
+        print("Parked Spectrometer")
+
+        # Reset the lid on top. Dont do this, because we run the record_spectrum after this and it requires a wash probe operation. 
+        # if solvents.has_lid_on_top == False:
+        #     self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
 
     
     def record_spectrum_till_end(self):
@@ -640,8 +762,9 @@ class Experiment:
         Function to take spectrum readings for the vials till the end of the experiement
         """
         axo = self.machine
-        spectrometer = self.spectrometer
+        spectrometer = self.spectrometer 
 
+        
         while True:
             # Break the loop when all the vials have num_readings_taken >= self.max_spectrum_records 
  
@@ -664,20 +787,26 @@ class Experiment:
                     sample_labware_sy = self.samples5_sy
                     sample_labware_spec = self.samples5_spec
 
+                # No need for the sample_labware_spec lid on top error handling. Becuase its already there in the record_spectrum func. 
+
                 # Get the Well object for the next_vial 
                 vial_well_obj = sample_labware_spec[next_vial]
 
                 # Calculate the time difference between the current time and the next_spectrum_recordtime
-                time_now = datetime.now()
-                timediff = self.data[f"slot{next_slot}"][next_vial]["next_spectrum_recordtime"] - time_now
+                timediff = vial_well_obj.next_spectrum_recordtime - datetime.now()
 
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
-                    time_now = datetime.now()
-                    if time_now >= vial_well_obj["next_spectrum_recordtime"]- timedelta(seconds= 18):
+                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 70):
                         self.record_spectrum(next_slot, next_vial)
                         break
                     else:
                         time.sleep(3)   # Wait for 3 seconds before checking again 
+
+                # Revert the lid on top of the sample_labware. Because we need to cover the samples in between the recording of readings
+                if sample_labware_spec.has_lid_on_top == False:
+                    self.gripper_pick_and_place(slot_from= 4, slot_to= next_slot) 
+
+
             else:
                 break 
 
@@ -707,7 +836,7 @@ class Experiment:
 
             # Check if all the vials have num_readings_taken >= self.max_spectrum_records
             for vial_name, vial_param in all_vials.items(): 
-                if sample_labware_spec[vial_name]["num_readings_taken"] < self.max_spectrum_records: 
+                if sample_labware_spec[vial_name].num_readings_taken < self.max_spectrum_records: 
                     flag_break = False  
 
         return flag_break 
