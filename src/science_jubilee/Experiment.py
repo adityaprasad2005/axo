@@ -755,7 +755,7 @@ class Experiment:
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
                     time_now = datetime.now()
 
-                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 50):
+                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 90):
                         self.record_spectrum(next_slot, next_vial) 
                         is_any_reading_taken = True
                         break
@@ -806,7 +806,7 @@ class Experiment:
                 timediff = vial_well_obj.next_spectrum_recordtime - datetime.now()
 
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
-                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 50):
+                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 90):
                         self.record_spectrum(next_slot, next_vial)
                         break
                     else:
@@ -814,6 +814,8 @@ class Experiment:
 
             else:
                 break 
+
+        print("Experiment Completed Successfully!!")
 
 
     def all_recordings_taken(self):
