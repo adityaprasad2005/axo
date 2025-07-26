@@ -174,10 +174,6 @@ class Experiment:
             
         # Reset the dual syringe 
         self.reset_dual_syringe()
-        
-        # Put lid on top of the precursors, now that all the vials have been synthesised 
-        if precursors.has_lid_on_top == False: 
-            self.gripper_pick_and_place(slot_from= 4, slot_to= 1)
 
         # Step 5. Record spectrum till the end of the experiment 
         self.record_spectrum_till_end()
@@ -298,9 +294,10 @@ class Experiment:
         axo.park_tool()
         print("Parked Dual Syringe")  
 
-        # Place lid over the precursors 
+        # Place lid over the precursors, now that all the vials have been synthesised 
         if precursors.has_lid_on_top == False: 
-            self.gripper_pick_and_place(slot_from= 4, slot_to= 1)
+            self.gripper_pick_and_place(slot_from= 4, slot_to= 1)  
+
 
     def gripper_pick_and_place(self, slot_from: int, slot_to: int):
         """
@@ -358,6 +355,12 @@ class Experiment:
                 sample_labware_ssy = self.samples5_ssy 
                 sample_labware_sy = self.samples5_sy
                 sample_labware_spec = self.samples5_spec 
+
+            # Lid on top error handling for the sample_labware_spec
+            if sample_labware_spec.has_lid_on_top == True: 
+                self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
+            else:
+                pass
 
             all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
 
@@ -434,6 +437,12 @@ class Experiment:
                 sample_labware_sy = self.samples5_sy
                 sample_labware_spec = self.samples5_spec 
 
+            # Lid on top error handling for the sample_labware_spec
+            if sample_labware_spec.has_lid_on_top == True: 
+                self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
+            else:
+                pass
+
             all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
 
             # Loop over all the vials in the slot
@@ -509,6 +518,11 @@ class Experiment:
             sample_labware_sy = self.samples5_sy
             sample_labware_spec = self.samples5_spec 
 
+        # Lid on top error handling for the sample_labware_spec
+        if sample_labware_spec.has_lid_on_top == True: 
+            self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
+        else:
+            pass
 
         # Pickup the dual syringe
         axo.pickup_tool(dual_syringe)
@@ -527,7 +541,6 @@ class Experiment:
         axo.park_tool()
         print("Parked Dual Syringe")  
 
-
         # Pickup the single syringe
         axo.pickup_tool(single_syringe)
         print("Picked Up Single Syringe")
@@ -536,7 +549,7 @@ class Experiment:
         mix_vol = currentLiquidVolume/3
 
         # Mix the vial Solution 
-        single_syringe.mix(vol = mix_vol, loc = sample_labware_ssy[vial_name].top(-65), num_cycles = 2, s = 300)
+        single_syringe.mix(vol = mix_vol, loc = sample_labware_ssy[vial_name].top(-65), num_cycles = 1, s = 300)
         print(f"Vial {vial_name} on Slot {slot} mixed") 
         time.sleep(7)
 
@@ -636,7 +649,7 @@ class Experiment:
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
                     time_now = datetime.now()
 
-                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 18):
+                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 25):
                         self.record_spectrum(next_slot, next_vial) 
                         is_any_reading_taken = True
                         break
@@ -670,14 +683,14 @@ class Experiment:
             sample_labware_spec = self.samples5_spec
 
 
-        # Lid on top error handling 
+        # Lid on top error handling for the sample_labware_spec
         if sample_labware_spec.has_lid_on_top == True: 
             self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
         else:
             pass 
 
 
-        # Lid on top error handling 
+        # Lid on top error handling for the solvents
         if solvents.has_lid_on_top == True:
             self.gripper_pick_and_place(slot_from= 3, slot_to= 4)
         else:
@@ -705,7 +718,7 @@ class Experiment:
         sample_labware_spec[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
 
         # Wash the probe 
-        spectrometer.wash_probe(solvents[0].top(-35), n_cycles= 3)
+        spectrometer.wash_probe(solvents[0].top(-35), n_cycles= 2)
         print("Washed Spectrometer Probe") 
 
         # Park the spectrometer 
@@ -796,7 +809,7 @@ class Experiment:
                 timediff = vial_well_obj.next_spectrum_recordtime - datetime.now()
 
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
-                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 70):
+                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 45):
                         self.record_spectrum(next_slot, next_vial)
                         break
                     else:
