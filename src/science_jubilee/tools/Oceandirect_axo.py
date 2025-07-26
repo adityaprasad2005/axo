@@ -338,7 +338,7 @@ class Spectrometer(Tool, OceanDirectAPI):
         """Return metadata dict *and* absorbance DataFrame."""
         p = pathlib.Path(path)
         meta, _ = _parse_header(p)
-        df = pd.read_csv(p, comment="#", index_col="wavelength_nm")
+        df = pd.read_csv(p, comment="#", index_col="wavelength_nm", encoding="cp1252")
         return meta, df
    
     
@@ -359,7 +359,7 @@ class Spectrometer(Tool, OceanDirectAPI):
         # 1) Read existing file or create new DataFrame
         if path.exists():
             header_dict, header_lines = _parse_header(path)
-            df = pd.read_csv(path, comment="#", index_col="wavelength_nm")
+            df = pd.read_csv(path, comment="#", index_col="wavelength_nm", encoding="cp1252")
         else:
             # Create new file with comprehensive metadata
             self._ensure_file(path, well_id, meta)
@@ -582,9 +582,9 @@ class Spectrometer(Tool, OceanDirectAPI):
             plt.figure(figsize=figsize)
             plt.plot(wavelengths, absorbance, color='purple', linewidth=2, label='Absorbance')
             plt.xlabel("Wavelength (nm)", fontsize=12)
-            plt.xlim(300, 900)
+            plt.xlim(400, 900)
             plt.ylabel("Absorbance (AU)", fontsize=12)
-            plt.ylim(0, 1.5)
+            plt.ylim(0, 5)
             plt.title(f"Absorbance Spectrum - {well_id} ({time_col})", fontsize=14)
             plt.grid(True, alpha=0.3)
             plt.legend()

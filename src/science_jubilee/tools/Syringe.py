@@ -170,9 +170,13 @@ class Syringe(Tool):
 
 
         travel_mm = vol * -1 * self.mm_to_ml
+        current_pos = self._machine.get_position() 
 
-        current_pos = self._machine.get_position()
-        end_pos = float(current_pos[self.e_drive]) + travel_mm
+        # This is to account for the rounding errors which makes travel_mm slightly more negative than the current_pos sometimes
+        if (travel_mm > -float(current_pos[self.e_drive])-0.2) and (travel_mm < -float(current_pos[self.e_drive])):
+            travel_mm = -float(current_pos[self.e_drive])
+
+        end_pos = float(current_pos[self.e_drive]) + travel_mm 
 
         if end_pos < self.min_range: # dispense underflows
 
@@ -191,6 +195,7 @@ class Syringe(Tool):
         # recompute pos now at full, end_pos = full + de
         refilled_pos = float(self._machine.get_position()[self.e_drive])
         end_pos = refilled_pos + travel_mm
+
         if end_pos < self.min_range:
             raise ToolStateError(f"even after refill, dispense still underflows.")
     

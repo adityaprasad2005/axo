@@ -312,6 +312,11 @@ class DoubleSyringe(Tool):
 
         # 4) check bounds and possibly refill (for dispense)
         current_pos = float(self._machine.get_position()[drive])
+
+        # This is to account for the rounding errors which makes travel_mm slightly more negative than the current_pos sometimes
+        if (travel_mm > -current_pos-0.2) and (travel_mm < -current_pos):
+            travel_mm = -current_pos
+
         end_pos = current_pos + travel_mm
 
         if not dispense:

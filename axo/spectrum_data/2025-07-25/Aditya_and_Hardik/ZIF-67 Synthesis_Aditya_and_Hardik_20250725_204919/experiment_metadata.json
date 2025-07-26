@@ -1,0 +1,13 @@
+{
+  "experiment_id": "ZIF-67 Synthesis_Aditya_and_Hardik_20250725_204919",
+  "experiment_name": "ZIF-67 Synthesis",
+  "operator_name": "Aditya_and_Hardik",
+  "target_compound": "ZIF-67",
+  "project_id": null,
+  "sample_type": "MOF_synthesis",
+  "solvent": "methanol",
+  "temperature_c": 25,
+  "notes": "Synthesis of a single vial of MOF - First run",
+  "created_at": "2025-07-25T20:49:19.671925",
+  "instrument_serial": 2
+}

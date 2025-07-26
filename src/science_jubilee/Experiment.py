@@ -24,7 +24,7 @@ from science_jubilee.tools.Oceandirect_axo import Spectrometer
 # Caution:[Done] While coding, keep in mind that sample_labware_sy/ssy/spec [vial_name] refer to different well objects. Hence when you apply any ops like dispense only the currentLiquidVolume paramter for that Well object will be updated. 
 # Hence use only sample_labware_sy for all the single/dual syringe operations and in the spectromter operations use sample_labware_spec but update the sample_labware_sy Well object side-by-side. 
 
-# TODO: Add the Lid handling code wherever needed with all the conditions. Do it for the record_spectrum and make_vial functions where we consider lids over the vials also and cover them after the op if completed. 
+# TODO: [Done] Add the Lid handling code wherever needed with all the conditions. Do it for the record_spectrum and make_vial functions where we consider lids over the vials also and cover them after the op if completed. 
 # TODO: [Done] Repair the problem with local and global copies of the self.samples2_sy (global labware class)-> sample_labware_sy(we make changes in well objects of it) -> self.samples2_sy(but the global labware class remains the same as before)
 # TODO: Make the code more general and ask the user to tell where the well_number n slot_number where the precursors and solvents are kept. 
 
@@ -204,6 +204,43 @@ class Experiment:
 
                 self.spectrometer.record_mof_recipe(well_id= vial_name , metal_precursor_name= self.metal_precursor_name, metal_precursor_vol_ml = metal_precursor_vol, organic_precursor_name= self.organic_precursor_name, organic_precursor_vol_ml = organic_precursor_vol, solvent_name= self.solvent_name, solvent_vol_ml= solvent_vol, additional_notes= slot_name)
 
+    def record_spectrum_refs(self):
+        """
+        Function to record spectrum references
+        """
+        axo = self.machine
+        spectrometer = self.spectrometer
+        solvents = self.solvents 
+
+        # Lid on top error handling 
+        if solvents.has_lid_on_top == True: 
+            self.gripper_pick_and_place(slot_from= 3, slot_to= 4) 
+
+        axo.pickup_tool(spectrometer)
+        print("Picked Up Spectrometer")
+
+        spectrometer.position_probe(solvents[1].top(-35)) 
+        print(f"Positioned Probe to collect the dark reference spectrum. \nKindly switch off the probe light")
+        choice = input("Press any key to continue: ")
+        print("Recording dark reference spectrum")
+        spectrometer.set_dark()
+
+        print("Kindly switch on the probe light")
+        choice = input("Press any key to continue: ")
+        print("Recording white reference spectrum")
+        spectrometer.set_white() 
+
+        spectrometer.configure_device()
+        print("Configured Spectrometer")
+
+        axo.park_tool() 
+        print("Parked Spectrometer")
+
+        # Reset the lid on top of the solvents
+        if solvents.has_lid_on_top == False:
+            self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
+
+
     def fill_dual_syringe(self):
         """
         Function to fill the dual syringe with dye
@@ -267,8 +304,6 @@ class Experiment:
         # Lid on top error handling 
         if precursors.has_lid_on_top == True: 
             self.gripper_pick_and_place(slot_from= 1, slot_to= 4) 
-        else:
-            pass 
         
         # Pick up the dual syringe
         axo.pickup_tool(dual_syringe)
@@ -335,8 +370,7 @@ class Experiment:
         # Lid on top error handling 
         if solvents.has_lid_on_top == True: 
             self.gripper_pick_and_place(slot_from= 3, slot_to= 4) 
-        else:
-            pass
+
 
         # Pickup the tool 
         axo.pickup_tool(single_syringe)
@@ -359,8 +393,6 @@ class Experiment:
             # Lid on top error handling for the sample_labware_spec
             if sample_labware_spec.has_lid_on_top == True: 
                 self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
-            else:
-                pass
 
             all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
 
@@ -410,11 +442,9 @@ class Experiment:
         solvents = self.solvents
         precursors = self.precursors  
 
-        # Lid on top error handling 
+        # Lid on top error handling over the precursors
         if precursors.has_lid_on_top == True: 
             self.gripper_pick_and_place(slot_from= 1, slot_to= 4) 
-        else:
-            pass 
 
 
         # Pickup the dual_syringe
@@ -440,8 +470,6 @@ class Experiment:
             # Lid on top error handling for the sample_labware_spec
             if sample_labware_spec.has_lid_on_top == True: 
                 self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
-            else:
-                pass
 
             all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
 
@@ -479,6 +507,10 @@ class Experiment:
         axo.park_tool()
         print("Parked Dual Syringe")  
 
+
+        # Lid on top error handling over the precursors
+        if precursors.has_lid_on_top == False: 
+            self.gripper_pick_and_place(slot_from= 4, slot_to= 1) 
 
 
     def make_vial(self, slot: int, vial_name: str, metal_precursor_vol: float, organic_precursor_vol: float, solvent_vol: float):
@@ -521,8 +553,10 @@ class Experiment:
         # Lid on top error handling for the sample_labware_spec
         if sample_labware_spec.has_lid_on_top == True: 
             self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
-        else:
-            pass
+
+        # Lid on top error handling for the precursors
+        if precursors.has_lid_on_top == True:
+            self.gripper_pick_and_place(slot_from= 1, slot_to= 4) 
 
         # Pickup the dual syringe
         axo.pickup_tool(dual_syringe)
@@ -557,9 +591,81 @@ class Experiment:
         axo.park_tool()
         print("Parked Single Syringe")
 
+        # Revert the lid on top of the precursors
+        if precursors.has_lid_on_top == False:
+            self.gripper_pick_and_place(slot_from= 4, slot_to= 1) 
+
         # Take the T0 spectrum reading 
         self.record_spectrum(slot, vial_name)
 
+
+    def record_spectrum(self, slot, vial_name):
+        """
+        Function to record spectrum for a given vial
+        Parameters:
+            slot (int): Slot number
+            vial_name (str): Vial name
+        """
+        axo = self.machine
+        spectrometer = self.spectrometer
+        solvents = self.solvents
+
+        # Choose the sample labware based on the slot number 
+        if slot == 2:
+            sample_labware_sy = self.samples2_sy
+            sample_labware_ssy = self.samples2_ssy
+            sample_labware_spec = self.samples2_spec
+        elif slot== 5:
+            sample_labware_sy = self.samples5_sy
+            sample_labware_ssy = self.samples5_ssy
+            sample_labware_spec = self.samples5_spec
+
+
+        # Lid on top error handling for the sample_labware_spec
+        if sample_labware_spec.has_lid_on_top == True: 
+            self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
+
+        # Lid on top error handling for the solvents
+        if solvents.has_lid_on_top == True:
+            self.gripper_pick_and_place(slot_from= 3, slot_to= 4)
+
+        # Pickup the spectrometer 
+        axo.pickup_tool(spectrometer)
+        print("Picked Up Spectrometer") 
+
+        # change the num_readings_taken attribute for all the Well objects 
+        sample_labware_sy[vial_name].num_readings_taken += 1
+        sample_labware_ssy[vial_name].num_readings_taken += 1
+        sample_labware_spec[vial_name].num_readings_taken += 1
+        
+        # Record the spectrum for the given vial 
+        elapsed_min = (sample_labware_spec[vial_name].num_readings_taken -1)* self.spectrum_record_interval_mins
+
+        wavelengths, vals, absorbance = spectrometer.collect_spectrum(sample_labware_spec[vial_name].top(-52), elapsed_min= elapsed_min, save= True)
+        spectrometer.plot_spectrum(sample_labware_spec[vial_name].top(-52), elapsed_min= elapsed_min , show_plot=True, save_plot=True)  
+        print(f"Spectrum recorded for vial {vial_name} on Slot {slot} at {elapsed_min} mins") 
+
+        # update the next_spectrum_recordtime for all the Well objects 
+        sample_labware_sy[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
+        sample_labware_ssy[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
+        sample_labware_spec[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
+
+        # Wash the probe 
+        spectrometer.wash_probe(solvents[0].top(-35), n_cycles= 2)
+        print("Washed Spectrometer Probe") 
+
+        # Park the spectrometer 
+        axo.park_tool() 
+        print("Parked Spectrometer ") 
+
+
+        # revert the lid on top of the solvents 
+        if solvents.has_lid_on_top == False:
+            self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
+
+        # revert the lid on top of the sample_labware_spec
+        if sample_labware_spec.has_lid_on_top == False:
+            self.gripper_pick_and_place(slot_from= 4, slot_to= slot)
 
 
     def nearest_spectrum_reading(self):
@@ -649,7 +755,7 @@ class Experiment:
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
                     time_now = datetime.now()
 
-                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 25):
+                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 50):
                         self.record_spectrum(next_slot, next_vial) 
                         is_any_reading_taken = True
                         break
@@ -660,114 +766,6 @@ class Experiment:
                 flag_var = False 
 
         return is_any_reading_taken
-
-    def record_spectrum(self, slot, vial_name):
-        """
-        Function to record spectrum for a given vial
-        Parameters:
-            slot (int): Slot number
-            vial_name (str): Vial name
-        """
-        axo = self.machine
-        spectrometer = self.spectrometer
-        solvents = self.solvents
-
-        # Choose the sample labware based on the slot number 
-        if slot == 2:
-            sample_labware_sy = self.samples2_sy
-            sample_labware_ssy = self.samples2_ssy
-            sample_labware_spec = self.samples2_spec
-        elif slot== 5:
-            sample_labware_sy = self.samples5_sy
-            sample_labware_ssy = self.samples5_ssy
-            sample_labware_spec = self.samples5_spec
-
-
-        # Lid on top error handling for the sample_labware_spec
-        if sample_labware_spec.has_lid_on_top == True: 
-            self.gripper_pick_and_place(slot_from= slot, slot_to= 4) 
-        else:
-            pass 
-
-
-        # Lid on top error handling for the solvents
-        if solvents.has_lid_on_top == True:
-            self.gripper_pick_and_place(slot_from= 3, slot_to= 4)
-        else:
-            pass
-
-        # Pickup the spectrometer 
-        axo.pickup_tool(spectrometer)
-        print("Picked Up Spectrometer") 
-
-        # change the num_readings_taken attribute for all the Well objects 
-        sample_labware_sy[vial_name].num_readings_taken += 1
-        sample_labware_ssy[vial_name].num_readings_taken += 1
-        sample_labware_spec[vial_name].num_readings_taken += 1
-        
-        # Record the spectrum for the given vial 
-        elapsed_min = (sample_labware_spec[vial_name].num_readings_taken -1)* self.spectrum_record_interval_mins
-
-        wavelengths, vals, absorbance = spectrometer.collect_spectrum(sample_labware_spec[vial_name].top(-52), elapsed_min= elapsed_min, save= True)
-        spectrometer.plot_spectrum(sample_labware_spec[vial_name].top(-52), elapsed_min= elapsed_min , show_plot=True, save_plot=True)  
-        print(f"Spectrum recorded for vial {vial_name} on Slot {slot} at {elapsed_min} mins") 
-
-        # update the next_spectrum_recordtime for all the Well objects 
-        sample_labware_sy[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
-        sample_labware_ssy[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
-        sample_labware_spec[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
-
-        # Wash the probe 
-        spectrometer.wash_probe(solvents[0].top(-35), n_cycles= 2)
-        print("Washed Spectrometer Probe") 
-
-        # Park the spectrometer 
-        axo.park_tool() 
-        print("Parked Spectrometer ") 
-
-
-        # revert the lid on top of the solvents 
-        if solvents.has_lid_on_top == False:
-            self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
-        else:
-            pass
-
-
-    def record_spectrum_refs(self):
-        """
-        Function to record spectrum references
-        """
-        axo = self.machine
-        spectrometer = self.spectrometer
-        solvents = self.solvents 
-
-        # Lid on top error handling 
-        if solvents.has_lid_on_top == True: 
-            self.gripper_pick_and_place(slot_from= 3, slot_to= 4) 
-
-        axo.pickup_tool(spectrometer)
-        print("Picked Up Spectrometer")
-
-        spectrometer.position_probe(solvents[1].top(-35)) 
-        print(f"Positioned Probe to collect the dark reference spectrum. \nKindly switch off the probe light")
-        choice = input("Press any key to continue: ")
-        print("Recording dark reference spectrum")
-        spectrometer.set_dark()
-
-        print("Kindly switch on the probe light")
-        choice = input("Press any key to continue: ")
-        print("Recording white reference spectrum")
-        spectrometer.set_white() 
-
-        spectrometer.configure_device()
-        print("Configured Spectrometer")
-
-        axo.park_tool() 
-        print("Parked Spectrometer")
-
-        # Reset the lid on top. Dont do this, because we run the record_spectrum after this and it requires a wash probe operation. 
-        # if solvents.has_lid_on_top == False:
-        #     self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
 
     
     def record_spectrum_till_end(self):
@@ -800,7 +798,6 @@ class Experiment:
                     sample_labware_sy = self.samples5_sy
                     sample_labware_spec = self.samples5_spec
 
-                # No need for the sample_labware_spec lid on top error handling. Becuase its already there in the record_spectrum func. 
 
                 # Get the Well object for the next_vial 
                 vial_well_obj = sample_labware_spec[next_vial]
@@ -809,16 +806,11 @@ class Experiment:
                 timediff = vial_well_obj.next_spectrum_recordtime - datetime.now()
 
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
-                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 45):
+                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 50):
                         self.record_spectrum(next_slot, next_vial)
                         break
                     else:
                         time.sleep(3)   # Wait for 3 seconds before checking again 
-
-                # Revert the lid on top of the sample_labware. Because we need to cover the samples in between the recording of readings
-                if sample_labware_spec.has_lid_on_top == False:
-                    self.gripper_pick_and_place(slot_from= 4, slot_to= next_slot) 
-
 
             else:
                 break 
