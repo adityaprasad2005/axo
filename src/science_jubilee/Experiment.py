@@ -85,7 +85,16 @@ class Experiment:
         # some more variables
         self.make_vial_time_mins = 6 #4.35  # Max time to physically implement the make_vial function 
         self.record_spectrum_time_mins = 2 #0.7 #Max time to physically implement the record_spectrum function
-        self.need_spectrum_refs = True # Flag to check if the spectrum references are already present
+        self.need_spectrum_refs = True # Flag to check if the spectrum references are already present 
+
+
+        # save the log_file_path 
+        log_dir = self.spectrometer.experiment_dir
+        log_file = "operations_log.txt"
+        os.makedirs(log_dir, exist_ok=True)
+        # Full path to the log file
+        self.log_path = os.path.join(log_dir, log_file)
+
 
     def make_batch(self, file_name: str) :
         """
@@ -170,6 +179,7 @@ class Experiment:
 
                 # We need to sleep for 2 minutes after making each vial. This is an essential step so that the synthesis of vials don't stagnate after some time. Otherwise, For example after synthesising 4 vials, the synthesis of 5th vial wont happen bcz the next_record_spectrum will be repeatedly called up for the initially synthesised vials. 
                 if is_any_reading_taken == False:
+                    self.log_operation(f"Sleep for {self.record_spectrum_time_mins*60} seconds")
                     time.sleep(self.record_spectrum_time_mins*60) 
             
         # Reset the dual syringe 
@@ -217,24 +227,24 @@ class Experiment:
             self.gripper_pick_and_place(slot_from= 3, slot_to= 4) 
 
         axo.pickup_tool(spectrometer)
-        print("Picked Up Spectrometer")
+        self.log_operation("Picked Up Spectrometer")
 
         spectrometer.position_probe(solvents[1].top(-35)) 
-        print(f"Positioned Probe to collect the dark reference spectrum. \nKindly switch off the probe light")
+        self.log_operation(f"Positioned Probe to collect the dark reference spectrum. \nKindly switch off the probe light")
         choice = input("Press any key to continue: ")
-        print("Recording dark reference spectrum")
+        self.log_operation("Recording dark reference spectrum")
         spectrometer.set_dark()
 
-        print("Kindly switch on the probe light")
+        self.log_operation("Kindly switch on the probe light")
         choice = input("Press any key to continue: ")
-        print("Recording white reference spectrum")
+        self.log_operation("Recording white reference spectrum")
         spectrometer.set_white() 
 
         spectrometer.configure_device()
-        print("Configured Spectrometer")
+        self.log_operation("Configured Spectrometer")
 
         axo.park_tool() 
-        print("Parked Spectrometer")
+        self.log_operation("Parked Spectrometer")
 
         # Reset the lid on top of the solvents
         if solvents.has_lid_on_top == False:
@@ -257,7 +267,7 @@ class Experiment:
         
         # Pick up the dual syringe 
         axo.pickup_tool(dual_syringe)
-        print("Picked Up Dual Syringe")
+        self.log_operation("Picked Up Dual Syringe")
 
         # No need for resetting, bcz the machine is by-deault in its zero position 
         # Reset the positions of the dual syringe on top of the precursor beakers
@@ -280,14 +290,15 @@ class Experiment:
         # Refill both the syringe one by one
         dual_syringe.refill(drive = dual_syringe.e0_drive, refill_loc = precursors[0].top(-54), s = 100)
         dual_syringe.refill(drive = dual_syringe.e1_drive, refill_loc = precursors[0].top(-54), s = 100)
-        print("Dual Syringe Refilled") 
+        self.log_operation("Dual Syringe Refilled") 
 
         # Wait a bit to let the drops fall off
+        self.log_operation(f"Sleeping for 10 seconds to let the drops fall off")
         time.sleep(10)
 
         # Park the dual syringe
         axo.park_tool()
-        print("Parked Dual Syringe") 
+        self.log_operation("Parked Dual Syringe") 
 
         # Place lid over the precursors 
         if precursors.has_lid_on_top == False: 
@@ -307,7 +318,7 @@ class Experiment:
         
         # Pick up the dual syringe
         axo.pickup_tool(dual_syringe)
-        print("Picked Up Dual Syringe")
+        self.log_operation("Picked Up Dual Syringe")
 
         drive0 = dual_syringe.e0_drive
         current_pos0 = float(dual_syringe._machine.get_position()[drive0])
@@ -315,7 +326,7 @@ class Experiment:
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
         dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
         current_pos = float(dual_syringe._machine.get_position()[drive0])
-        print("Dual Syringe Drive 0 reset and position:", current_pos)
+        self.log_operation("Dual Syringe Drive 0 reset and position:", current_pos)
 
         drive1 = dual_syringe.e1_drive
         current_pos1 = float(dual_syringe._machine.get_position()[drive1])
@@ -323,11 +334,11 @@ class Experiment:
         headroom_ml1 = headroom_mm1 / dual_syringe.mm_to_ml
         dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
         current_pos = float(dual_syringe._machine.get_position()[drive1])
-        print("Dual Syringe Drive 1 reset and position:", current_pos) 
+        self.log_operation("Dual Syringe Drive 1 reset and position:", current_pos) 
 
         # Park the dual syringe
         axo.park_tool()
-        print("Parked Dual Syringe")  
+        self.log_operation("Parked Dual Syringe")  
 
         # Place lid over the precursors, now that all the vials have been synthesised 
         if precursors.has_lid_on_top == False: 
@@ -348,14 +359,14 @@ class Experiment:
         vacuum_location = self.vacuum_location
 
         axo.pickup_tool(gripper)
-        print("Picked Up Vacuum Gripper")
+        self.log_operation("Picked Up Vacuum Gripper")
 
         gripper.pick_and_place(vacuum_location[slot_from],
                             vacuum_location[slot_to], 0.7, 3)
-        print(f"Picked Lid from Slot {slot_from} and Placed Lid in Slot {slot_to}")
+        self.log_operation(f"Picked Lid from Slot {slot_from} and Placed Lid in Slot {slot_to}")
 
         axo.park_tool()
-        print("Parked Vacuum Gripper")  
+        self.log_operation("Parked Vacuum Gripper")  
 
     
     def dispense_solvent_all_vials(self):
@@ -374,7 +385,7 @@ class Experiment:
 
         # Pickup the tool 
         axo.pickup_tool(single_syringe)
-        print("Picked Up Single Syringe") 
+        self.log_operation("Picked Up Single Syringe") 
 
         # Loop over all the slots
         for slot_name in self.slot_names: 
@@ -405,7 +416,8 @@ class Experiment:
 
                 # Fill the vial with solvent
                 single_syringe.dispense(vol= solvent_vol, sample_loc= sample_labware_ssy[vial_name].top(-10), refill_loc= solvents[1].top(-50), s= 100)
-                print(f"Vial {vial_name} on Slot {slot} filled with {solvent_vol} ml solvent")
+                self.log_operation(f"Vial {vial_name} on Slot {slot} filled with {solvent_vol} ml solvent")
+                self.log_operation("Sleep for 10 seconds to let the drops fall off")
                 time.sleep(10)
 
                 # Update the currentLiquidVolume for other Well objects 
@@ -419,12 +431,13 @@ class Experiment:
         headroom_ml = headroom_mm / single_syringe.mm_to_ml
         single_syringe.dispense(vol= headroom_ml, sample_loc=solvents[1].top(-10), refill_loc=solvents[1].top(-10), s=500)
         current_pos = float(single_syringe._machine.get_position()[drive])
-        print("Single Syringe reset and position:", current_pos)
+        self.log_operation("Single Syringe reset and position:", current_pos)
+        self.log_operation("Sleep for 5 seconds to let the drops fall off")
         time.sleep(5)
 
         # Park the single syringe
         axo.park_tool()
-        print("Parked Single Syringe")   
+        self.log_operation("Parked Single Syringe")   
 
         # Place lid over the solvents
         if solvents.has_lid_on_top == False: 
@@ -449,7 +462,7 @@ class Experiment:
 
         # Pickup the dual_syringe
         axo.pickup_tool(dual_syringe)
-        print("Picked Up Dual Syringe")
+        self.log_operation("Picked Up Dual Syringe")
 
         # print("Precursors[1] liquid level before dispense:", precursors[1].currentLiquidVolume)
 
@@ -481,8 +494,9 @@ class Experiment:
 
                 # Dispense the metal precursor into the vial
                 dual_syringe.dispense_e0(vol= metal_precursor_vol, sample_loc_e=sample_labware_sy[vial_name].top(-25), refill_loc_e=precursors[0].top(-54), s=250)
+                self.log_operation("Sleep for 10 seconds to let the drops fall off")
                 time.sleep(10)  
-                print(f"Vial {vial_name} on Slot {slot} filled with {metal_precursor_vol} ml metal precursor ") 
+                self.log_operation(f"Vial {vial_name} on Slot {slot} filled with {metal_precursor_vol} ml metal precursor ") 
 
                 # print("Precursors[1] liquid level after dispense:", precursors[1].currentLiquidVolume) 
 
@@ -499,13 +513,13 @@ class Experiment:
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
         dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
         current_pos = float(dual_syringe._machine.get_position()[drive0])
-        print("Dual Syringe Drive 0 reset and position:", current_pos)
+        self.log_operation("Dual Syringe Drive 0 reset and position:", current_pos)
 
         # print("Precursors[1] liquid level after reset:", precursors[1].currentLiquidVolume)
 
         # Park the dual syringe 
         axo.park_tool()
-        print("Parked Dual Syringe")  
+        self.log_operation("Parked Dual Syringe")  
 
 
         # Lid on top error handling over the precursors
@@ -560,11 +574,12 @@ class Experiment:
 
         # Pickup the dual syringe
         axo.pickup_tool(dual_syringe)
-        print("Picked Up Dual Syringe")
+        self.log_operation("Picked Up Dual Syringe")
 
         # Dispense organic precursor into the vial
         dual_syringe.dispense_e1(vol= organic_precursor_vol, sample_loc_v=sample_labware_sy[vial_name].top(-25), refill_loc_v=precursors[0].top(-54), s=100)
-        print(f"Vial {vial_name} on Slot {slot} filled with {metal_precursor_vol} ml metal precursor and {organic_precursor_vol} ml organic precursor") 
+        self.log_operation(f"Vial {vial_name} on Slot {slot} filled with {metal_precursor_vol} ml metal precursor and {organic_precursor_vol} ml organic precursor") 
+        self.log_operation("Sleep for 10 seconds to let the drops fall off")
         time.sleep(10)
 
         # update the currentLiquidVolume for other Well objects
@@ -573,23 +588,24 @@ class Experiment:
 
         # Park the dual syringe 
         axo.park_tool()
-        print("Parked Dual Syringe")  
+        self.log_operation("Parked Dual Syringe")  
 
         # Pickup the single syringe
         axo.pickup_tool(single_syringe)
-        print("Picked Up Single Syringe")
+        self.log_operation("Picked Up Single Syringe")
 
         currentLiquidVolume = sample_labware_ssy[vial_name].currentLiquidVolume 
         mix_vol = currentLiquidVolume/3
 
         # Mix the vial Solution 
         single_syringe.mix(vol = mix_vol, loc = sample_labware_ssy[vial_name].top(-65), num_cycles = 1, s = 300)
-        print(f"Vial {vial_name} on Slot {slot} mixed") 
+        self.log_operation(f"Vial {vial_name} on Slot {slot} mixed") 
+        self.log_operation("Sleep for 7 seconds to let the drops fall off")
         time.sleep(7)
 
         # Park the single syringe
         axo.park_tool()
-        print("Parked Single Syringe")
+        self.log_operation("Parked Single Syringe")
 
         # Revert the lid on top of the precursors
         if precursors.has_lid_on_top == False:
@@ -631,7 +647,7 @@ class Experiment:
 
         # Pickup the spectrometer 
         axo.pickup_tool(spectrometer)
-        print("Picked Up Spectrometer") 
+        self.log_operation("Picked Up Spectrometer") 
 
         # change the num_readings_taken attribute for all the Well objects 
         sample_labware_sy[vial_name].num_readings_taken += 1
@@ -643,7 +659,7 @@ class Experiment:
 
         wavelengths, vals, absorbance = spectrometer.collect_spectrum(sample_labware_spec[vial_name].top(-52), elapsed_min= elapsed_min, save= True)
         spectrometer.plot_spectrum(sample_labware_spec[vial_name].top(-52), elapsed_min= elapsed_min , show_plot=True, save_plot=True)  
-        print(f"Spectrum recorded for vial {vial_name} on Slot {slot} at {elapsed_min} mins") 
+        self.log_operation(f"Spectrum recorded for vial {vial_name} on Slot {slot} at {elapsed_min} mins") 
 
         # update the next_spectrum_recordtime for all the Well objects 
         sample_labware_sy[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
@@ -652,11 +668,11 @@ class Experiment:
 
         # Wash the probe 
         spectrometer.wash_probe(solvents[0].top(-35), n_cycles= 1)
-        print("Washed Spectrometer Probe") 
+        self.log_operation("Washed Spectrometer Probe") 
 
         # Park the spectrometer 
         axo.park_tool() 
-        print("Parked Spectrometer ") 
+        self.log_operation("Parked Spectrometer ") 
 
 
         # revert the lid on top of the solvents 
@@ -760,6 +776,7 @@ class Experiment:
                         is_any_reading_taken = True
                         break
                     else:
+                        self.log_operation("Sleeping for 3 seconds before checking again")
                         time.sleep(3)  # Sleep for 3 seconds before checking again
 
             else:
@@ -810,12 +827,13 @@ class Experiment:
                         self.record_spectrum(next_slot, next_vial)
                         break
                     else:
+                        self.log_operation("Sleeping for 3 seconds before checking again")
                         time.sleep(3)   # Wait for 3 seconds before checking again 
 
             else:
                 break 
 
-        print("Experiment Completed Successfully!!")
+        self.log_operation("Experiment Completed Successfully!!")
 
 
     def all_recordings_taken(self):
@@ -849,13 +867,16 @@ class Experiment:
         return flag_break 
 
                 
+    def log_operation(self, message: str):
+        """
+        Function to log the operation into the operation log .txt file
+        """
 
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        entry = f"[{now}] {message}\n" 
 
+        print(entry)
+        
+        with open(self.log_path, "a") as file:  # 'a' for append mode
+            file.write(entry) 
 
-
-# datas = make_batch(r"C:\Users\ADITI\Downloads\Aditya\Axo_Jubilee\science-jubilee\axo\axo_api_testing\draft_synthesis_plan.json")
-
-# print(datas)
-# print(type(datas))
-# print(datas.keys()) 
-# print(datas["slot5"])
