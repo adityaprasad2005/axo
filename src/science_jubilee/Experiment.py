@@ -651,7 +651,7 @@ class Experiment:
         sample_labware_spec[vial_name].next_spectrum_recordtime = datetime.now() + timedelta(minutes=self.spectrum_record_interval_mins)
 
         # Wash the probe 
-        spectrometer.wash_probe(solvents[0].top(-35), n_cycles= 2)
+        spectrometer.wash_probe(solvents[0].top(-35), n_cycles= 1)
         print("Washed Spectrometer Probe") 
 
         # Park the spectrometer 

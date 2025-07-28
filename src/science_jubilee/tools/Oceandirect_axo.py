@@ -584,7 +584,7 @@ class Spectrometer(Tool, OceanDirectAPI):
             plt.xlabel("Wavelength (nm)", fontsize=12)
             plt.xlim(400, 900)
             plt.ylabel("Absorbance (AU)", fontsize=12)
-            plt.ylim(0, 5)
+            plt.ylim(0, 2.5)
             plt.title(f"Absorbance Spectrum - {well_id} ({time_col})", fontsize=14)
             plt.grid(True, alpha=0.3)
             plt.legend()
