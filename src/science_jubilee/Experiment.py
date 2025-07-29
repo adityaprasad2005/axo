@@ -95,6 +95,37 @@ class Experiment:
         # Full path to the log file
         self.log_path = os.path.join(log_dir, log_file)
 
+    def all_vials_made(self):
+        """
+        This function is used to check if all the vials have been synthesised or not
+        Returns Bool: True/False
+        """
+        # Loop over all the slots 
+        for slot_name in self.slot_names: 
+            slot = int(slot_name[4:]) if slot_name[4:].isdigit() else slot_name[4:]
+
+            # Choose the sample labware based on the slot number
+            if slot == 2: 
+                sample_labware_ssy = self.samples2_ssy
+                sample_labware_sy = self.samples2_sy
+                sample_labware_spec = self.samples2_spec
+            elif slot ==5:
+                sample_labware_ssy = self.samples5_ssy 
+                sample_labware_sy = self.samples5_sy
+                sample_labware_spec = self.samples5_spec 
+
+            all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
+
+            # Loop over all the vials in the slot
+            for vial_name, vial_param in all_vials.items(): 
+                vial_well_obj = sample_labware_spec[vial_name] 
+
+                # If any of the vials did not have their T0 spectrum recorded, we return False. 
+                if vial_well_obj.num_readings_taken == 0:
+                    return False
+                
+            return True
+
 
     def make_batch(self, file_name: str) :
         """
@@ -247,7 +278,7 @@ class Experiment:
         self.log_operation("Parked Spectrometer")
 
         # Reset the lid on top of the solvents
-        if solvents.has_lid_on_top == False:
+        if solvents.has_lid_on_top == False and self.all_vials_made == True:
             self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
 
 
@@ -262,8 +293,6 @@ class Experiment:
         # Lid on top error handling 
         if precursors.has_lid_on_top == True: 
             self.gripper_pick_and_place(slot_from= 1, slot_to= 4) 
-        else:
-            pass
         
         # Pick up the dual syringe 
         axo.pickup_tool(dual_syringe)
@@ -301,7 +330,7 @@ class Experiment:
         self.log_operation("Parked Dual Syringe") 
 
         # Place lid over the precursors 
-        if precursors.has_lid_on_top == False: 
+        if precursors.has_lid_on_top == False and self.all_vials_made == True: 
             self.gripper_pick_and_place(slot_from= 4, slot_to= 1)  
     
     def reset_dual_syringe(self):
@@ -326,7 +355,7 @@ class Experiment:
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
         dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
         current_pos = float(dual_syringe._machine.get_position()[drive0])
-        self.log_operation("Dual Syringe Drive 0 reset and position:", current_pos)
+        self.log_operation(f"Dual Syringe Drive 0 reset and position: {current_pos}")
 
         drive1 = dual_syringe.e1_drive
         current_pos1 = float(dual_syringe._machine.get_position()[drive1])
@@ -334,14 +363,14 @@ class Experiment:
         headroom_ml1 = headroom_mm1 / dual_syringe.mm_to_ml
         dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
         current_pos = float(dual_syringe._machine.get_position()[drive1])
-        self.log_operation("Dual Syringe Drive 1 reset and position:", current_pos) 
+        self.log_operation(f"Dual Syringe Drive 1 reset and position: {current_pos}") 
 
         # Park the dual syringe
         axo.park_tool()
         self.log_operation("Parked Dual Syringe")  
 
         # Place lid over the precursors, now that all the vials have been synthesised 
-        if precursors.has_lid_on_top == False: 
+        if precursors.has_lid_on_top == False:
             self.gripper_pick_and_place(slot_from= 4, slot_to= 1)  
 
 
@@ -431,7 +460,7 @@ class Experiment:
         headroom_ml = headroom_mm / single_syringe.mm_to_ml
         single_syringe.dispense(vol= headroom_ml, sample_loc=solvents[1].top(-10), refill_loc=solvents[1].top(-10), s=500)
         current_pos = float(single_syringe._machine.get_position()[drive])
-        self.log_operation("Single Syringe reset and position:", current_pos)
+        self.log_operation(f"Single Syringe reset and position: {current_pos}")
         self.log_operation("Sleep for 5 seconds to let the drops fall off")
         time.sleep(5)
 
@@ -440,7 +469,7 @@ class Experiment:
         self.log_operation("Parked Single Syringe")   
 
         # Place lid over the solvents
-        if solvents.has_lid_on_top == False: 
+        if solvents.has_lid_on_top == False and self.all_vials_made == True: 
             self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
 
 
@@ -513,7 +542,7 @@ class Experiment:
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
         dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
         current_pos = float(dual_syringe._machine.get_position()[drive0])
-        self.log_operation("Dual Syringe Drive 0 reset and position:", current_pos)
+        self.log_operation(f"Dual Syringe Drive 0 reset and position: {current_pos}")
 
         # print("Precursors[1] liquid level after reset:", precursors[1].currentLiquidVolume)
 
@@ -523,7 +552,7 @@ class Experiment:
 
 
         # Lid on top error handling over the precursors
-        if precursors.has_lid_on_top == False: 
+        if precursors.has_lid_on_top == False and self.all_vials_made == True: 
             self.gripper_pick_and_place(slot_from= 4, slot_to= 1) 
 
 
@@ -608,7 +637,7 @@ class Experiment:
         self.log_operation("Parked Single Syringe")
 
         # Revert the lid on top of the precursors
-        if precursors.has_lid_on_top == False:
+        if precursors.has_lid_on_top == False and self.all_vials_made == True:
             self.gripper_pick_and_place(slot_from= 4, slot_to= 1) 
 
         # Take the T0 spectrum reading 
@@ -675,12 +704,30 @@ class Experiment:
         self.log_operation("Parked Spectrometer ") 
 
 
-        # revert the lid on top of the solvents 
-        if solvents.has_lid_on_top == False:
+        # Check if the nearest spectrum record time is within 2 minutes from now. 
+        # Get the nearest next_spectrum_recordtime
+        next_slot, next_vial = self.nearest_spectrum_reading()
+        # choose the sample labware based on the slot number
+        if next_slot == 2: 
+            sample_labware_ssy = self.samples2_ssy
+            sample_labware_sy = self.samples2_sy 
+            sample_labware_spec = self.samples2_spec
+        elif next_slot == 5:
+            sample_labware_ssy = self.samples5_ssy
+            sample_labware_sy = self.samples5_sy
+            sample_labware_spec = self.samples5_spec
+        # Get the Well object of the next_vial
+        vial_well_obj = sample_labware_spec[next_vial]
+        # Calculate the time difference between the current time and the next_spectrum_recordtime
+        nearest_timediff = vial_well_obj.next_spectrum_recordtime - datetime.now()
+
+
+        # revert the lid on top of the solvents only if all the vials have been synthesised(Just to save time)
+        if solvents.has_lid_on_top == False and self.all_vials_made == True and nearest_timediff > timedelta(minutes=2) :
             self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
 
-        # revert the lid on top of the sample_labware_spec
-        if sample_labware_spec.has_lid_on_top == False:
+        # revert the lid on top of the sample_labware_spec only if all the vials have been synthesised(Just to save time)
+        if sample_labware_spec.has_lid_on_top == False and self.all_vials_made == True and nearest_timediff > timedelta(minutes=2):
             self.gripper_pick_and_place(slot_from= 4, slot_to= slot)
 
 
@@ -771,7 +818,7 @@ class Experiment:
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
                     time_now = datetime.now()
 
-                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 90):
+                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 110):
                         self.record_spectrum(next_slot, next_vial) 
                         is_any_reading_taken = True
                         break
@@ -823,7 +870,7 @@ class Experiment:
                 timediff = vial_well_obj.next_spectrum_recordtime - datetime.now()
 
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
-                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 90):
+                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 110):
                         self.record_spectrum(next_slot, next_vial)
                         break
                     else:

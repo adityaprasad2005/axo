@@ -5,6 +5,26 @@
             "metal_precursor_vol" : 1.66 ,
             "organic_precursor_vol" : 1.0375 ,
             "solvent_vol" : 7.2625
+        },
+        "A2": {
+            "metal_precursor_vol" : 1.66 ,
+            "organic_precursor_vol" : 1.0375 ,
+            "solvent_vol" : 7.2625
+        },
+        "A3": {
+            "metal_precursor_vol" : 1.66 ,
+            "organic_precursor_vol" : 1.0375 ,
+            "solvent_vol" : 7.2625
+        },
+        "A4": {
+            "metal_precursor_vol" : 1.66 ,
+            "organic_precursor_vol" : 1.0375 ,
+            "solvent_vol" : 7.2625
+        },
+        "A5": {
+            "metal_precursor_vol" : 1.66 ,
+            "organic_precursor_vol" : 1.0375 ,
+            "solvent_vol" : 7.2625
         }
     },  
 
@@ -13,11 +33,11 @@
 
     "Experiment" : { 
             "operator_name" : "Aditya and Hardik" , 
-            "experiment_name" : "MOF Synthesis Batch of 5 - Identical", 
+            "experiment_name" : "MOF Synthesis Batch of 2 - Identical", 
             "experiment_date" : "28th July 2025", 
-            "experiment_time" : "14:15", 
-            "experiment_description" : "Synthesis of 5 vials of MOF - First run", 
-            "approximate_time": "5 hours", 
+            "experiment_time" : "17:15", 
+            "experiment_description" : "Synthesis of 2 vials of MOF", 
+            "approximate_time": "4 hours", 
             "metal_precursor_name": "Co+2", 
             "organic_precursor_name": "2-methylimidazole", 
             "solvent_name": "methanol"

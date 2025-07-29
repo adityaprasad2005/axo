@@ -1,0 +1,1162 @@
+[2025-07-28 17:15:11] Picked Up Vacuum Gripper
+[2025-07-28 17:15:32] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 17:15:39] Parked Vacuum Gripper
+[2025-07-28 17:15:49] Picked Up Spectrometer
+[2025-07-28 17:15:58] Positioned Probe to collect the dark reference spectrum. 
+Kindly switch off the probe light
+[2025-07-28 17:16:07] Recording dark reference spectrum
+[2025-07-28 17:16:08] Kindly switch on the probe light
+[2025-07-28 17:16:10] Recording white reference spectrum
+[2025-07-28 17:16:10] Configured Spectrometer
+[2025-07-28 17:16:20] Parked Spectrometer
+[2025-07-28 17:16:31] Picked Up Vacuum Gripper
+[2025-07-28 17:16:51] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 17:16:59] Parked Vacuum Gripper
+[2025-07-28 17:17:10] Picked Up Vacuum Gripper
+[2025-07-28 17:17:33] Picked Lid from Slot 1 and Placed Lid in Slot 4
+[2025-07-28 17:17:41] Parked Vacuum Gripper
+[2025-07-28 17:17:52] Picked Up Dual Syringe
+[2025-07-28 17:21:25] Dual Syringe Refilled
+[2025-07-28 17:21:25] Sleeping for 10 seconds to let the drops fall off
+[2025-07-28 17:21:45] Parked Dual Syringe
+[2025-07-28 17:21:57] Picked Up Vacuum Gripper
+[2025-07-28 17:22:19] Picked Lid from Slot 4 and Placed Lid in Slot 1
+[2025-07-28 17:22:27] Parked Vacuum Gripper
+[2025-07-28 17:22:38] Picked Up Vacuum Gripper
+[2025-07-28 17:23:00] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 17:23:08] Parked Vacuum Gripper
+[2025-07-28 17:23:17] Picked Up Single Syringe
+[2025-07-28 17:25:13] Vial A1 on Slot 2 filled with 7.2625 ml solvent
+[2025-07-28 17:25:13] Sleep for 10 seconds to let the drops fall off
+[2025-07-28 17:27:24] Vial A2 on Slot 2 filled with 7.2625 ml solvent
+[2025-07-28 17:27:24] Sleep for 10 seconds to let the drops fall off
+[2025-07-28 17:28:09] Single Syringe reset and position: -0.0
+[2025-07-28 17:28:09] Sleep for 5 seconds to let the drops fall off
+[2025-07-28 17:28:22] Parked Single Syringe
+[2025-07-28 17:28:33] Picked Up Vacuum Gripper
+[2025-07-28 17:28:53] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 17:29:01] Parked Vacuum Gripper
+[2025-07-28 17:29:12] Picked Up Vacuum Gripper
+[2025-07-28 17:29:35] Picked Lid from Slot 1 and Placed Lid in Slot 4
+[2025-07-28 17:29:43] Parked Vacuum Gripper
+[2025-07-28 17:29:55] Picked Up Dual Syringe
+[2025-07-28 17:30:11] Sleep for 10 seconds to let the drops fall off
+[2025-07-28 17:30:21] Vial A1 on Slot 2 filled with 1.66 ml metal precursor 
+[2025-07-28 17:30:34] Sleep for 10 seconds to let the drops fall off
+[2025-07-28 17:30:44] Vial A2 on Slot 2 filled with 1.66 ml metal precursor 
+[2025-07-28 17:31:05] Dual Syringe Drive 0 reset and position: 0.0
+[2025-07-28 17:31:16] Parked Dual Syringe
+[2025-07-28 17:31:28] Picked Up Vacuum Gripper
+[2025-07-28 17:31:50] Picked Lid from Slot 4 and Placed Lid in Slot 1
+[2025-07-28 17:31:58] Parked Vacuum Gripper
+[2025-07-28 17:32:08] Picked Up Vacuum Gripper
+[2025-07-28 17:32:32] Picked Lid from Slot 1 and Placed Lid in Slot 4
+[2025-07-28 17:32:40] Parked Vacuum Gripper
+[2025-07-28 17:32:51] Picked Up Dual Syringe
+[2025-07-28 17:33:11] Vial A1 on Slot 2 filled with 1.66 ml metal precursor and 1.0375 ml organic precursor
+[2025-07-28 17:33:11] Sleep for 10 seconds to let the drops fall off
+[2025-07-28 17:33:30] Parked Dual Syringe
+[2025-07-28 17:33:40] Picked Up Single Syringe
+[2025-07-28 17:34:18] Vial A1 on Slot 2 mixed
+[2025-07-28 17:34:18] Sleep for 7 seconds to let the drops fall off
+[2025-07-28 17:34:34] Parked Single Syringe
+[2025-07-28 17:34:45] Picked Up Vacuum Gripper
+[2025-07-28 17:35:06] Picked Lid from Slot 4 and Placed Lid in Slot 1
+[2025-07-28 17:35:14] Parked Vacuum Gripper
+[2025-07-28 17:35:25] Picked Up Vacuum Gripper
+[2025-07-28 17:35:47] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 17:35:54] Parked Vacuum Gripper
+[2025-07-28 17:36:04] Picked Up Spectrometer
+[2025-07-28 17:36:15] Spectrum recorded for vial A1 on Slot 2 at 0 mins
+[2025-07-28 17:36:24] Washed Spectrometer Probe
+[2025-07-28 17:36:33] Parked Spectrometer 
+[2025-07-28 17:36:44] Picked Up Vacuum Gripper
+[2025-07-28 17:37:04] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 17:37:12] Parked Vacuum Gripper
+[2025-07-28 17:37:23] Picked Up Vacuum Gripper
+[2025-07-28 17:37:44] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 17:37:51] Parked Vacuum Gripper
+[2025-07-28 17:37:51] Sleep for 120 seconds
+[2025-07-28 17:40:02] Picked Up Vacuum Gripper
+[2025-07-28 17:40:22] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 17:40:30] Parked Vacuum Gripper
+[2025-07-28 17:40:41] Picked Up Vacuum Gripper
+[2025-07-28 17:41:05] Picked Lid from Slot 1 and Placed Lid in Slot 4
+[2025-07-28 17:41:13] Parked Vacuum Gripper
+[2025-07-28 17:41:24] Picked Up Dual Syringe
+[2025-07-28 17:41:44] Vial A2 on Slot 2 filled with 1.66 ml metal precursor and 1.0375 ml organic precursor
+[2025-07-28 17:41:44] Sleep for 10 seconds to let the drops fall off
+[2025-07-28 17:42:03] Parked Dual Syringe
+[2025-07-28 17:42:13] Picked Up Single Syringe
+[2025-07-28 17:42:51] Vial A2 on Slot 2 mixed
+[2025-07-28 17:42:51] Sleep for 7 seconds to let the drops fall off
+[2025-07-28 17:43:07] Parked Single Syringe
+[2025-07-28 17:43:18] Picked Up Vacuum Gripper
+[2025-07-28 17:43:39] Picked Lid from Slot 4 and Placed Lid in Slot 1
+[2025-07-28 17:43:47] Parked Vacuum Gripper
+[2025-07-28 17:43:58] Picked Up Vacuum Gripper
+[2025-07-28 17:44:20] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 17:44:28] Parked Vacuum Gripper
+[2025-07-28 17:44:38] Picked Up Spectrometer
+[2025-07-28 17:44:48] Spectrum recorded for vial A2 on Slot 2 at 0 mins
+[2025-07-28 17:44:57] Washed Spectrometer Probe
+[2025-07-28 17:45:06] Parked Spectrometer 
+[2025-07-28 17:45:18] Picked Up Vacuum Gripper
+[2025-07-28 17:45:37] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 17:45:45] Parked Vacuum Gripper
+[2025-07-28 17:45:56] Picked Up Vacuum Gripper
+[2025-07-28 17:46:17] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 17:46:24] Parked Vacuum Gripper
+[2025-07-28 17:46:24] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:27] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:30] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:33] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:36] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:39] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:42] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:45] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:48] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:51] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:54] Sleeping for 3 seconds before checking again
+[2025-07-28 17:46:57] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:00] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:03] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:06] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:09] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:12] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:15] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:18] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:21] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:24] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:27] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:30] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:33] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:36] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:39] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:42] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:45] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:48] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:51] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:54] Sleeping for 3 seconds before checking again
+[2025-07-28 17:47:57] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:00] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:03] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:06] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:09] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:12] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:15] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:18] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:21] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:24] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:27] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:30] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:33] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:36] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:39] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:42] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:45] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:48] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:51] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:54] Sleeping for 3 seconds before checking again
+[2025-07-28 17:48:57] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:00] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:03] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:06] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:09] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:12] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:15] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:18] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:21] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:24] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:27] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:30] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:33] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:36] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:39] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:42] Sleeping for 3 seconds before checking again
+[2025-07-28 17:49:56] Picked Up Vacuum Gripper
+[2025-07-28 17:50:16] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 17:50:25] Parked Vacuum Gripper
+[2025-07-28 17:50:36] Picked Up Vacuum Gripper
+[2025-07-28 17:50:58] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 17:51:06] Parked Vacuum Gripper
+[2025-07-28 17:51:15] Picked Up Spectrometer
+[2025-07-28 17:51:26] Spectrum recorded for vial A1 on Slot 2 at 15 mins
+[2025-07-28 17:51:34] Washed Spectrometer Probe
+[2025-07-28 17:51:44] Parked Spectrometer 
+[2025-07-28 17:51:55] Picked Up Vacuum Gripper
+[2025-07-28 17:52:15] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 17:52:23] Parked Vacuum Gripper
+[2025-07-28 17:52:33] Picked Up Vacuum Gripper
+[2025-07-28 17:52:55] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 17:53:02] Parked Vacuum Gripper
+[2025-07-28 17:53:13] Picked Up Vacuum Gripper
+[2025-07-28 17:53:37] Picked Lid from Slot 1 and Placed Lid in Slot 4
+[2025-07-28 17:53:46] Parked Vacuum Gripper
+[2025-07-28 17:53:57] Picked Up Dual Syringe
+[2025-07-28 17:54:10] Dual Syringe Drive 0 reset and position: 0.0
+[2025-07-28 17:54:35] Dual Syringe Drive 1 reset and position: 0.0
+[2025-07-28 17:54:46] Parked Dual Syringe
+[2025-07-28 17:54:57] Picked Up Vacuum Gripper
+[2025-07-28 17:55:20] Picked Lid from Slot 4 and Placed Lid in Slot 1
+[2025-07-28 17:55:28] Parked Vacuum Gripper
+[2025-07-28 17:55:28] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:31] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:34] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:37] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:40] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:43] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:46] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:49] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:52] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:55] Sleeping for 3 seconds before checking again
+[2025-07-28 17:55:58] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:01] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:04] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:07] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:10] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:13] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:16] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:19] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:22] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:25] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:28] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:31] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:34] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:37] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:40] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:43] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:46] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:49] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:52] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:55] Sleeping for 3 seconds before checking again
+[2025-07-28 17:56:58] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:01] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:04] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:07] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:10] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:13] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:16] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:19] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:22] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:25] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:28] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:31] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:34] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:37] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:40] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:43] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:46] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:49] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:52] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:55] Sleeping for 3 seconds before checking again
+[2025-07-28 17:57:58] Sleeping for 3 seconds before checking again
+[2025-07-28 17:58:01] Sleeping for 3 seconds before checking again
+[2025-07-28 17:58:04] Sleeping for 3 seconds before checking again
+[2025-07-28 17:58:07] Sleeping for 3 seconds before checking again
+[2025-07-28 17:58:10] Sleeping for 3 seconds before checking again
+[2025-07-28 17:58:13] Sleeping for 3 seconds before checking again
+[2025-07-28 17:58:16] Sleeping for 3 seconds before checking again
+[2025-07-28 17:58:30] Picked Up Vacuum Gripper
+[2025-07-28 17:58:50] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 17:58:59] Parked Vacuum Gripper
+[2025-07-28 17:59:10] Picked Up Vacuum Gripper
+[2025-07-28 17:59:31] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 17:59:39] Parked Vacuum Gripper
+[2025-07-28 17:59:48] Picked Up Spectrometer
+[2025-07-28 17:59:59] Spectrum recorded for vial A2 on Slot 2 at 15 mins
+[2025-07-28 18:00:08] Washed Spectrometer Probe
+[2025-07-28 18:00:17] Parked Spectrometer 
+[2025-07-28 18:00:28] Picked Up Vacuum Gripper
+[2025-07-28 18:00:48] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 18:00:56] Parked Vacuum Gripper
+[2025-07-28 18:01:07] Picked Up Vacuum Gripper
+[2025-07-28 18:01:28] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 18:01:35] Parked Vacuum Gripper
+[2025-07-28 18:01:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:01:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:01:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:01:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:01:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:01:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:01:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:01:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:01:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:02:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:03:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:04:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:05:07] Picked Up Vacuum Gripper
+[2025-07-28 18:05:27] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 18:05:36] Parked Vacuum Gripper
+[2025-07-28 18:05:47] Picked Up Vacuum Gripper
+[2025-07-28 18:06:09] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 18:06:17] Parked Vacuum Gripper
+[2025-07-28 18:06:26] Picked Up Spectrometer
+[2025-07-28 18:06:37] Spectrum recorded for vial A1 on Slot 2 at 30 mins
+[2025-07-28 18:06:45] Washed Spectrometer Probe
+[2025-07-28 18:06:54] Parked Spectrometer 
+[2025-07-28 18:07:06] Picked Up Vacuum Gripper
+[2025-07-28 18:07:25] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 18:07:33] Parked Vacuum Gripper
+[2025-07-28 18:07:44] Picked Up Vacuum Gripper
+[2025-07-28 18:08:05] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 18:08:12] Parked Vacuum Gripper
+[2025-07-28 18:08:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:08:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:09:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:10:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:11:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:52] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:55] Sleeping for 3 seconds before checking again
+[2025-07-28 18:12:58] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:01] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:04] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:07] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:10] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:13] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:16] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:19] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:22] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:25] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:28] Sleeping for 3 seconds before checking again
+[2025-07-28 18:13:41] Picked Up Vacuum Gripper
+[2025-07-28 18:14:01] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 18:14:10] Parked Vacuum Gripper
+[2025-07-28 18:14:21] Picked Up Vacuum Gripper
+[2025-07-28 18:14:43] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 18:14:51] Parked Vacuum Gripper
+[2025-07-28 18:15:00] Picked Up Spectrometer
+[2025-07-28 18:15:11] Spectrum recorded for vial A2 on Slot 2 at 30 mins
+[2025-07-28 18:15:20] Washed Spectrometer Probe
+[2025-07-28 18:15:29] Parked Spectrometer 
+[2025-07-28 18:15:40] Picked Up Vacuum Gripper
+[2025-07-28 18:16:00] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 18:16:08] Parked Vacuum Gripper
+[2025-07-28 18:16:19] Picked Up Vacuum Gripper
+[2025-07-28 18:16:40] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 18:16:47] Parked Vacuum Gripper
+[2025-07-28 18:16:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:16:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:16:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:16:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:16:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:17:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:18:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:19:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:20:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:20:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:20:19] Picked Up Vacuum Gripper
+[2025-07-28 18:20:39] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 18:20:47] Parked Vacuum Gripper
+[2025-07-28 18:20:58] Picked Up Vacuum Gripper
+[2025-07-28 18:21:20] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 18:21:28] Parked Vacuum Gripper
+[2025-07-28 18:21:38] Picked Up Spectrometer
+[2025-07-28 18:21:48] Spectrum recorded for vial A1 on Slot 2 at 45 mins
+[2025-07-28 18:21:57] Washed Spectrometer Probe
+[2025-07-28 18:22:06] Parked Spectrometer 
+[2025-07-28 18:22:18] Picked Up Vacuum Gripper
+[2025-07-28 18:22:37] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 18:22:45] Parked Vacuum Gripper
+[2025-07-28 18:22:56] Picked Up Vacuum Gripper
+[2025-07-28 18:23:17] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 18:23:24] Parked Vacuum Gripper
+[2025-07-28 18:23:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:23:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:24:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:25:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:26:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:27:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:28:53] Picked Up Vacuum Gripper
+[2025-07-28 18:29:13] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 18:29:22] Parked Vacuum Gripper
+[2025-07-28 18:29:33] Picked Up Vacuum Gripper
+[2025-07-28 18:29:55] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 18:30:03] Parked Vacuum Gripper
+[2025-07-28 18:30:12] Picked Up Spectrometer
+[2025-07-28 18:30:23] Spectrum recorded for vial A2 on Slot 2 at 45 mins
+[2025-07-28 18:30:32] Washed Spectrometer Probe
+[2025-07-28 18:30:41] Parked Spectrometer 
+[2025-07-28 18:30:52] Picked Up Vacuum Gripper
+[2025-07-28 18:31:12] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 18:31:20] Parked Vacuum Gripper
+[2025-07-28 18:31:31] Picked Up Vacuum Gripper
+[2025-07-28 18:31:52] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 18:31:59] Parked Vacuum Gripper
+[2025-07-28 18:31:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:32:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:33:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:34:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:35:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:35:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:35:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:35:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:35:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:35:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:35:31] Picked Up Vacuum Gripper
+[2025-07-28 18:35:51] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 18:36:00] Parked Vacuum Gripper
+[2025-07-28 18:36:11] Picked Up Vacuum Gripper
+[2025-07-28 18:36:33] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 18:36:41] Parked Vacuum Gripper
+[2025-07-28 18:36:50] Picked Up Spectrometer
+[2025-07-28 18:37:01] Spectrum recorded for vial A1 on Slot 2 at 60 mins
+[2025-07-28 18:37:09] Washed Spectrometer Probe
+[2025-07-28 18:37:19] Parked Spectrometer 
+[2025-07-28 18:37:30] Picked Up Vacuum Gripper
+[2025-07-28 18:37:50] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 18:37:58] Parked Vacuum Gripper
+[2025-07-28 18:38:08] Picked Up Vacuum Gripper
+[2025-07-28 18:38:30] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 18:38:37] Parked Vacuum Gripper
+[2025-07-28 18:38:37] Sleeping for 3 seconds before checking again
+[2025-07-28 18:38:40] Sleeping for 3 seconds before checking again
+[2025-07-28 18:38:43] Sleeping for 3 seconds before checking again
+[2025-07-28 18:38:46] Sleeping for 3 seconds before checking again
+[2025-07-28 18:38:49] Sleeping for 3 seconds before checking again
+[2025-07-28 18:38:52] Sleeping for 3 seconds before checking again
+[2025-07-28 18:38:55] Sleeping for 3 seconds before checking again
+[2025-07-28 18:38:58] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:01] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:04] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:07] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:10] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:13] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:16] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:19] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:22] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:25] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:28] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:31] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:34] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:37] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:40] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:43] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:46] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:49] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:52] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:55] Sleeping for 3 seconds before checking again
+[2025-07-28 18:39:58] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:01] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:04] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:07] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:10] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:13] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:16] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:19] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:22] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:25] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:28] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:31] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:34] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:37] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:40] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:43] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:46] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:49] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:52] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:55] Sleeping for 3 seconds before checking again
+[2025-07-28 18:40:58] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:01] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:04] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:07] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:10] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:13] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:16] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:19] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:22] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:25] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:28] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:31] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:34] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:37] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:40] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:43] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:46] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:49] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:52] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:55] Sleeping for 3 seconds before checking again
+[2025-07-28 18:41:58] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:01] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:04] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:07] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:10] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:13] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:16] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:19] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:22] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:25] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:28] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:31] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:34] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:37] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:40] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:43] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:46] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:49] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:52] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:55] Sleeping for 3 seconds before checking again
+[2025-07-28 18:42:58] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:01] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:04] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:07] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:10] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:13] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:16] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:19] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:22] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:25] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:28] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:31] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:34] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:37] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:40] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:43] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:46] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:49] Sleeping for 3 seconds before checking again
+[2025-07-28 18:43:52] Sleeping for 3 seconds before checking again
+[2025-07-28 18:44:06] Picked Up Vacuum Gripper
+[2025-07-28 18:44:26] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 18:44:34] Parked Vacuum Gripper
+[2025-07-28 18:44:45] Picked Up Vacuum Gripper
+[2025-07-28 18:45:07] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 18:45:15] Parked Vacuum Gripper
+[2025-07-28 18:45:25] Picked Up Spectrometer
+[2025-07-28 18:45:36] Spectrum recorded for vial A2 on Slot 2 at 60 mins
+[2025-07-28 18:45:45] Washed Spectrometer Probe
+[2025-07-28 18:45:54] Parked Spectrometer 
+[2025-07-28 18:46:05] Picked Up Vacuum Gripper
+[2025-07-28 18:46:25] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 18:46:33] Parked Vacuum Gripper
+[2025-07-28 18:46:44] Picked Up Vacuum Gripper
+[2025-07-28 18:47:05] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 18:47:12] Parked Vacuum Gripper
+[2025-07-28 18:47:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:47:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:48:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:33] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:36] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:39] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:42] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:45] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:48] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:51] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:54] Sleeping for 3 seconds before checking again
+[2025-07-28 18:49:57] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:00] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:03] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:06] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:09] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:12] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:15] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:18] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:21] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:24] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:27] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:30] Sleeping for 3 seconds before checking again
+[2025-07-28 18:50:44] Picked Up Vacuum Gripper
+[2025-07-28 18:51:04] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 18:51:13] Parked Vacuum Gripper
+[2025-07-28 18:51:24] Picked Up Vacuum Gripper
+[2025-07-28 18:51:46] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 18:51:54] Parked Vacuum Gripper
+[2025-07-28 18:52:03] Picked Up Spectrometer
+[2025-07-28 18:52:14] Spectrum recorded for vial A1 on Slot 2 at 75 mins
+[2025-07-28 18:52:22] Washed Spectrometer Probe
+[2025-07-28 18:52:32] Parked Spectrometer 
+[2025-07-28 18:52:43] Picked Up Vacuum Gripper
+[2025-07-28 18:53:03] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 18:53:11] Parked Vacuum Gripper
+[2025-07-28 18:53:21] Picked Up Vacuum Gripper
+[2025-07-28 18:53:43] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 18:53:50] Parked Vacuum Gripper
+[2025-07-28 18:53:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:53:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:53:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:53:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:54:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:55:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:56:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:57:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:08] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:11] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:14] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:17] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:20] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:23] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:26] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:29] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:32] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:35] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:38] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:41] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:44] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:47] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:50] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:53] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:56] Sleeping for 3 seconds before checking again
+[2025-07-28 18:58:59] Sleeping for 3 seconds before checking again
+[2025-07-28 18:59:02] Sleeping for 3 seconds before checking again
+[2025-07-28 18:59:05] Sleeping for 3 seconds before checking again
+[2025-07-28 18:59:19] Picked Up Vacuum Gripper
+[2025-07-28 18:59:39] Picked Lid from Slot 2 and Placed Lid in Slot 4
+[2025-07-28 18:59:48] Parked Vacuum Gripper
+[2025-07-28 18:59:58] Picked Up Vacuum Gripper
+[2025-07-28 19:00:21] Picked Lid from Slot 3 and Placed Lid in Slot 4
+[2025-07-28 19:00:28] Parked Vacuum Gripper
+[2025-07-28 19:00:38] Picked Up Spectrometer
+[2025-07-28 19:00:49] Spectrum recorded for vial A2 on Slot 2 at 75 mins
+[2025-07-28 19:00:58] Washed Spectrometer Probe
+[2025-07-28 19:01:07] Parked Spectrometer 
+[2025-07-28 19:01:18] Picked Up Vacuum Gripper
+[2025-07-28 19:01:38] Picked Lid from Slot 4 and Placed Lid in Slot 3
+[2025-07-28 19:01:46] Parked Vacuum Gripper
+[2025-07-28 19:01:57] Picked Up Vacuum Gripper
+[2025-07-28 19:02:18] Picked Lid from Slot 4 and Placed Lid in Slot 2
+[2025-07-28 19:02:25] Parked Vacuum Gripper
+[2025-07-28 19:02:25] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:28] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:31] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:34] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:37] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:40] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:43] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:46] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:49] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:52] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:55] Sleeping for 3 seconds before checking again
+[2025-07-28 19:02:58] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:01] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:04] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:07] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:10] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:13] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:16] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:19] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:22] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:25] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:28] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:31] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:34] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:37] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:40] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:43] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:46] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:49] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:52] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:55] Sleeping for 3 seconds before checking again
+[2025-07-28 19:03:58] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:01] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:04] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:07] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:10] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:13] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:16] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:19] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:22] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:25] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:28] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:31] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:34] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:37] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:40] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:43] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:46] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:49] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:52] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:55] Sleeping for 3 seconds before checking again
+[2025-07-28 19:04:58] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:01] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:04] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:07] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:10] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:13] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:16] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:19] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:22] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:25] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:28] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:31] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:34] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:37] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:40] Sleeping for 3 seconds before checking again
+[2025-07-28 19:05:43] Sleeping for 3 seconds before checking again

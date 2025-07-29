@@ -1,0 +1,34 @@
+{
+  "A1": {
+    "metal_precursor": {
+      "name": "Co+2",
+      "volume_ml": 1.66
+    },
+    "organic_precursor": {
+      "name": "2-methylimidazole",
+      "volume_ml": 1.0375
+    },
+    "solvent": {
+      "name": "methanol",
+      "volume_ml": 7.2625
+    },
+    "total_volume_ml": 9.96,
+    "notes": "slot2"
+  },
+  "A2": {
+    "metal_precursor": {
+      "name": "Co+2",
+      "volume_ml": 1.66
+    },
+    "organic_precursor": {
+      "name": "2-methylimidazole",
+      "volume_ml": 1.0375
+    },
+    "solvent": {
+      "name": "methanol",
+      "volume_ml": 7.2625
+    },
+    "total_volume_ml": 9.96,
+    "notes": "slot2"
+  }
+}

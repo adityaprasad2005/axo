@@ -116,16 +116,21 @@ class Tool:
                 error = self.OverridableError(f"{well_obj} Well cannot accomodate {target_volume} ml dispense liquid volume ")
                 # raise ToolStateError(f"{well_obj} Well cannot accomodate {target_volume} ml dispense liquid volume ") 
                 bool_override_choice = error.ask_override()
+
         else:                                      # volume is to be aspirated out of the location
-            if well_obj.currentLiquidVolume - target_volume >= 0:
+            if well_obj.currentLiquidVolume - target_volume >= 30:  # Since the aspiration ops, are only for the beakers, we have a threshold liquid carrying capacity of 30ml. 
                 pass
             else: 
                 error = self.OverridableError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ")
                 # raise ToolStateError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ") 
                 bool_override_choice = error.ask_override()
         
+
+
         if bool_override_choice:
-            pass
+            # if the user overrides the error message and it is an aspirate operation, then we need to reset the currentLiquidVolume of the Well
+            if is_dispense == False: 
+                well_obj.currentLiquidVolume = well_obj.totalLiquidVolume
         else:
             raise error
 
