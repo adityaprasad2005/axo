@@ -28,15 +28,15 @@
         }
     },  
 
-    "spectrum_record_interval_mins" :15 ,  
-    "max_spectrum_records" : 13,
+    "spectrum_record_interval_mins" :20 ,  
+    "max_spectrum_records" : 10,
 
     "Experiment" : { 
-            "operator_name" : "Aditya and Hardik" , 
-            "experiment_name" : "MOF Synthesis Batch of 2 - Identical", 
+            "operator_name" : "Shuan" , 
+            "experiment_name" : "MOF Synthesis Batch of 5 - Identical", 
             "experiment_date" : "28th July 2025", 
-            "experiment_time" : "17:15", 
-            "experiment_description" : "Synthesis of 2 vials of MOF", 
+            "experiment_time" : "19:19", 
+            "experiment_description" : "Synthesis of 5 vials of MOF", 
             "approximate_time": "4 hours", 
             "metal_precursor_name": "Co+2", 
             "organic_precursor_name": "2-methylimidazole", 

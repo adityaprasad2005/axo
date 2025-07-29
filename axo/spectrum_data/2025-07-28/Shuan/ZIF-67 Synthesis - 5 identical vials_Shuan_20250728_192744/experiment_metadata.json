@@ -1,0 +1,13 @@
+{
+  "experiment_id": "ZIF-67 Synthesis - 5 identical vials_Shuan_20250728_192744",
+  "experiment_name": "ZIF-67 Synthesis - 5 identical vials",
+  "operator_name": "Shuan",
+  "target_compound": "ZIF-67",
+  "project_id": null,
+  "sample_type": "MOF_synthesis",
+  "solvent": "methanol",
+  "temperature_c": 25,
+  "notes": "Synthesis of 5 identical vials of MOF",
+  "created_at": "2025-07-28T19:27:44.279184",
+  "instrument_serial": 2
+}

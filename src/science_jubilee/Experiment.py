@@ -95,37 +95,6 @@ class Experiment:
         # Full path to the log file
         self.log_path = os.path.join(log_dir, log_file)
 
-    def all_vials_made(self):
-        """
-        This function is used to check if all the vials have been synthesised or not
-        Returns Bool: True/False
-        """
-        # Loop over all the slots 
-        for slot_name in self.slot_names: 
-            slot = int(slot_name[4:]) if slot_name[4:].isdigit() else slot_name[4:]
-
-            # Choose the sample labware based on the slot number
-            if slot == 2: 
-                sample_labware_ssy = self.samples2_ssy
-                sample_labware_sy = self.samples2_sy
-                sample_labware_spec = self.samples2_spec
-            elif slot ==5:
-                sample_labware_ssy = self.samples5_ssy 
-                sample_labware_sy = self.samples5_sy
-                sample_labware_spec = self.samples5_spec 
-
-            all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
-
-            # Loop over all the vials in the slot
-            for vial_name, vial_param in all_vials.items(): 
-                vial_well_obj = sample_labware_spec[vial_name] 
-
-                # If any of the vials did not have their T0 spectrum recorded, we return False. 
-                if vial_well_obj.num_readings_taken == 0:
-                    return False
-                
-            return True
-
 
     def make_batch(self, file_name: str) :
         """
@@ -245,6 +214,37 @@ class Experiment:
 
                 self.spectrometer.record_mof_recipe(well_id= vial_name , metal_precursor_name= self.metal_precursor_name, metal_precursor_vol_ml = metal_precursor_vol, organic_precursor_name= self.organic_precursor_name, organic_precursor_vol_ml = organic_precursor_vol, solvent_name= self.solvent_name, solvent_vol_ml= solvent_vol, additional_notes= slot_name)
 
+    def all_vials_made(self):
+        """
+        This function is used to check if all the vials have been synthesised or not
+        Returns Bool: True/False
+        """
+        # Loop over all the slots 
+        for slot_name in self.slot_names: 
+            slot = int(slot_name[4:]) if slot_name[4:].isdigit() else slot_name[4:]
+
+            # Choose the sample labware based on the slot number
+            if slot == 2: 
+                sample_labware_ssy = self.samples2_ssy
+                sample_labware_sy = self.samples2_sy
+                sample_labware_spec = self.samples2_spec
+            elif slot ==5:
+                sample_labware_ssy = self.samples5_ssy 
+                sample_labware_sy = self.samples5_sy
+                sample_labware_spec = self.samples5_spec 
+
+            all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
+
+            # Loop over all the vials in the slot
+            for vial_name, vial_param in all_vials.items(): 
+                vial_well_obj = sample_labware_spec[vial_name] 
+
+                # If any of the vials did not have their T0 spectrum recorded, we return False. 
+                if vial_well_obj.num_readings_taken == 0:
+                    return False
+                
+            return True
+        
     def record_spectrum_refs(self):
         """
         Function to record spectrum references
@@ -299,22 +299,6 @@ class Experiment:
         self.log_operation("Picked Up Dual Syringe")
 
         # No need for resetting, bcz the machine is by-deault in its zero position 
-        # Reset the positions of the dual syringe on top of the precursor beakers
-        # drive0 = dual_syringe.e0_drive
-        # current_pos0 = float(dual_syringe._machine.get_position()[drive0])
-        # headroom_mm0 = current_pos0 - dual_syringe.min_range
-        # headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
-        # dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
-        # current_pos = float(dual_syringe._machine.get_position()[drive0])
-        # print("Dual Syringe Drive 0 reset and position:", current_pos)
-
-        # drive1 = dual_syringe.e1_drive
-        # current_pos1 = float(dual_syringe._machine.get_position()[drive1])
-        # headroom_mm1 = current_pos1 - dual_syringe.min_range
-        # headroom_ml1 = headroom_mm1 / dual_syringe.mm_to_ml
-        # dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
-        # current_pos = float(dual_syringe._machine.get_position()[drive1])
-        # print("Dual Syringe Drive 1 reset and position:", current_pos)
 
         # Refill both the syringe one by one
         dual_syringe.refill(drive = dual_syringe.e0_drive, refill_loc = precursors[0].top(-54), s = 100)
@@ -353,17 +337,30 @@ class Experiment:
         current_pos0 = float(dual_syringe._machine.get_position()[drive0])
         headroom_mm0 = current_pos0 - dual_syringe.min_range
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
-        dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
-        current_pos = float(dual_syringe._machine.get_position()[drive0])
-        self.log_operation(f"Dual Syringe Drive 0 reset and position: {current_pos}")
+        # dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
 
         drive1 = dual_syringe.e1_drive
         current_pos1 = float(dual_syringe._machine.get_position()[drive1])
         headroom_mm1 = current_pos1 - dual_syringe.min_range
         headroom_ml1 = headroom_mm1 / dual_syringe.mm_to_ml
-        dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
-        current_pos = float(dual_syringe._machine.get_position()[drive1])
-        self.log_operation(f"Dual Syringe Drive 1 reset and position: {current_pos}") 
+        # dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
+
+        x, y, z = dual_syringe._xy_for_drive(drive0, precursors[0]) 
+        dual_syringe._machine.safe_z_movement()
+        dual_syringe._machine.move_to(x=x, y=y, wait=True)
+        dual_syringe._machine.move_to(z=z, wait=True)
+
+        dual_syringe.reset_position()
+
+        # update the currentLiquidVolume of the precursors
+        dual_syringe.update_currentLiquidVolume(volume= headroom_ml0, location= precursors[1], is_dispense= True)
+        dual_syringe.update_currentLiquidVolume(volume= headroom_ml1, location= precursors[0], is_dispense= True)
+
+        # Log the resetting of the Dual Syringe
+        current_pos0 = float(dual_syringe._machine.get_position()[drive0])
+        current_pos1 = float(dual_syringe._machine.get_position()[drive1])
+        self.log_operation(f"Dual Syringe Drive 0 reset and position: {current_pos0}")
+        self.log_operation(f"Dual Syringe Drive 1 reset and position: {current_pos1}") 
 
         # Park the dual syringe
         axo.park_tool()
@@ -454,15 +451,27 @@ class Experiment:
                 single_syringe.update_currentLiquidVolume(volume= solvent_vol, location= sample_labware_spec[vial_name], is_dispense=True )
 
         # Reset the single syringe position before parking because we have to use it later for mix ops 
-        drive = single_syringe.e_drive
+        drive = single_syringe.e_drive 
+
+        x, y, z = Labware._getxyz(solvents[1])
+        single_syringe._machine.safe_z_movement()
+        single_syringe._machine.move_to(x=x, y=y)
+        single_syringe._machine.move_to(z=z)
+
         current_pos = float(single_syringe._machine.get_position()[drive])
         headroom_mm = current_pos - single_syringe.min_range
         headroom_ml = headroom_mm / single_syringe.mm_to_ml
-        single_syringe.dispense(vol= headroom_ml, sample_loc=solvents[1].top(-10), refill_loc=solvents[1].top(-10), s=500)
-        current_pos = float(single_syringe._machine.get_position()[drive])
+        # single_syringe.dispense(vol= headroom_ml, sample_loc=solvents[1].top(-10), refill_loc=solvents[1].top(-10), s=500)
+
+        single_syringe.reset_position()
+
+        current_pos = float(single_syringe._machine.get_position()[drive])        
         self.log_operation(f"Single Syringe reset and position: {current_pos}")
         self.log_operation("Sleep for 5 seconds to let the drops fall off")
         time.sleep(5)
+
+        # update the currentLiquidVolume of the solvents[1] well
+        single_syringe.update_currentLiquidVolume(volume= headroom_ml, location= solvents[1], is_dispense= True)
 
         # Park the single syringe
         axo.park_tool()
@@ -492,8 +501,6 @@ class Experiment:
         # Pickup the dual_syringe
         axo.pickup_tool(dual_syringe)
         self.log_operation("Picked Up Dual Syringe")
-
-        # print("Precursors[1] liquid level before dispense:", precursors[1].currentLiquidVolume)
 
         # Loop over all the slots
         for slot_name in self.slot_names: 
@@ -527,24 +534,39 @@ class Experiment:
                 time.sleep(10)  
                 self.log_operation(f"Vial {vial_name} on Slot {slot} filled with {metal_precursor_vol} ml metal precursor ") 
 
-                # print("Precursors[1] liquid level after dispense:", precursors[1].currentLiquidVolume) 
-
                 # update the currentLiquidVolume for other Well objects
                 dual_syringe.update_currentLiquidVolume(volume= metal_precursor_vol, location= sample_labware_ssy[vial_name], is_dispense=True )
                 dual_syringe.update_currentLiquidVolume(volume= metal_precursor_vol, location= sample_labware_spec[vial_name], is_dispense=True ) 
 
-        # print("Precursors[1] liquid level before reset:", precursors[1].currentLiquidVolume)
+        # Reset the dual syringe:0 before parking. We wont be using it later on. 
+        # drive0 = dual_syringe.e0_drive
+        # current_pos0 = float(dual_syringe._machine.get_position()[drive0])
+        # headroom_mm0 = current_pos0 - dual_syringe.min_range
+        # headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
+        # dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
+        # current_pos = float(dual_syringe._machine.get_position()[drive0])
+        # self.log_operation(f"Dual Syringe Drive 0 reset and position: {current_pos}")
 
         # Reset the dual syringe:0 before parking. We wont be using it later on. 
         drive0 = dual_syringe.e0_drive
+
+        x, y, z = dual_syringe._xy_for_drive(drive0, precursors[0]) 
+        dual_syringe._machine.safe_z_movement()
+        dual_syringe._machine.move_to(x=x, y=y, wait=True)
+        dual_syringe._machine.move_to(z=z, wait=True)
+
         current_pos0 = float(dual_syringe._machine.get_position()[drive0])
         headroom_mm0 = current_pos0 - dual_syringe.min_range
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
-        dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
-        current_pos = float(dual_syringe._machine.get_position()[drive0])
-        self.log_operation(f"Dual Syringe Drive 0 reset and position: {current_pos}")
 
-        # print("Precursors[1] liquid level after reset:", precursors[1].currentLiquidVolume)
+        dual_syringe.reset_position()
+
+        # update the currentLiquidVolume of the precursors
+        dual_syringe.update_currentLiquidVolume(volume= headroom_ml0, location= precursors[1], is_dispense= True)
+
+        # Log the resetting of the Dual Syringe
+        current_pos0 = float(dual_syringe._machine.get_position()[drive0])
+        self.log_operation(f"Dual Syringe Drive 0 reset and position: {current_pos0}")
 
         # Park the dual syringe 
         axo.park_tool()
@@ -630,7 +652,7 @@ class Experiment:
         single_syringe.mix(vol = mix_vol, loc = sample_labware_ssy[vial_name].top(-65), num_cycles = 1, s = 300)
         self.log_operation(f"Vial {vial_name} on Slot {slot} mixed") 
         self.log_operation("Sleep for 7 seconds to let the drops fall off")
-        time.sleep(7)
+        # time.sleep(7)
 
         # Park the single syringe
         axo.park_tool()
@@ -704,7 +726,7 @@ class Experiment:
         self.log_operation("Parked Spectrometer ") 
 
 
-        # Check if the nearest spectrum record time is within 2 minutes from now. 
+        # Check if the nearest spectrum record time is within 1 minutes from now. 
         # Get the nearest next_spectrum_recordtime
         next_slot, next_vial = self.nearest_spectrum_reading()
         # choose the sample labware based on the slot number
@@ -723,11 +745,11 @@ class Experiment:
 
 
         # revert the lid on top of the solvents only if all the vials have been synthesised(Just to save time)
-        if solvents.has_lid_on_top == False and self.all_vials_made == True and nearest_timediff > timedelta(minutes=2) :
+        if solvents.has_lid_on_top == False and self.all_vials_made == True and nearest_timediff > timedelta(minutes=1) :
             self.gripper_pick_and_place(slot_from= 4, slot_to= 3)
 
         # revert the lid on top of the sample_labware_spec only if all the vials have been synthesised(Just to save time)
-        if sample_labware_spec.has_lid_on_top == False and self.all_vials_made == True and nearest_timediff > timedelta(minutes=2):
+        if sample_labware_spec.has_lid_on_top == False and self.all_vials_made == True and nearest_timediff > timedelta(minutes=1):
             self.gripper_pick_and_place(slot_from= 4, slot_to= slot)
 
 
@@ -770,7 +792,9 @@ class Experiment:
 
                 vial_well_obj = sample_labware_sy[vial_name]
 
-                if vial_well_obj.next_spectrum_recordtime is not None:
+                # Ensure that the vial's next_spectrum_recordtime is not None and also ensure that we "need" to take the next readings for the vial
+                if vial_well_obj.next_spectrum_recordtime is not None and vial_well_obj.num_readings_taken < self.max_spectrum_records:
+
                     time_diff = vial_well_obj.next_spectrum_recordtime - datetime.now()       
                     # If somehow a vial's next_spectrum_recordtime is in the past, then its timediff will be the most negative. And accordingly it will be given the utmost priority. 
 
@@ -818,7 +842,7 @@ class Experiment:
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
                     time_now = datetime.now()
 
-                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 110):
+                    if time_now >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds=70):
                         self.record_spectrum(next_slot, next_vial) 
                         is_any_reading_taken = True
                         break
@@ -847,7 +871,7 @@ class Experiment:
             flag_break = self.all_recordings_taken()
 
             # If all the vials have num_readings_taken >= self.max_spectrum_records, break the loop
-            if not flag_break:
+            if flag_break == False:
                 # Get the nearest next_spectrum_recordtime
                 next_slot, next_vial = self.nearest_spectrum_reading() 
 
@@ -870,7 +894,7 @@ class Experiment:
                 timediff = vial_well_obj.next_spectrum_recordtime - datetime.now()
 
                 while True:   # Keep running the loop until the current datetime reaches the next_spectrum_recordtime of the vial
-                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 110):
+                    if datetime.now() >= vial_well_obj.next_spectrum_recordtime- timedelta(seconds= 70):
                         self.record_spectrum(next_slot, next_vial)
                         break
                     else:
@@ -878,6 +902,7 @@ class Experiment:
                         time.sleep(3)   # Wait for 3 seconds before checking again 
 
             else:
+                # Break out of the loop when all the readings have been taken. And end the operations
                 break 
 
         self.log_operation("Experiment Completed Successfully!!")
@@ -888,7 +913,7 @@ class Experiment:
         Functions return True is all the recordings have been taken ; else False 
         """
 
-        flag_break= True
+        flag_var= True
 
         # Loop over all the slots
         for slot_name in self.slot_names: 
@@ -906,12 +931,14 @@ class Experiment:
 
             all_vials = self.data[slot_name]    # a dict with "A1": {}, "A2": {} ...
 
-            # Check if all the vials have num_readings_taken >= self.max_spectrum_records
+            # Check if all the vials have num_readings_taken >= self.max_spectrum_records. Otherwise put flag_var = False
             for vial_name, vial_param in all_vials.items(): 
                 if sample_labware_spec[vial_name].num_readings_taken < self.max_spectrum_records: 
-                    flag_break = False  
+                    flag_var = False  
+                    break
 
-        return flag_break 
+
+        return flag_var
 
                 
     def log_operation(self, message: str):

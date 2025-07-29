@@ -118,7 +118,7 @@ class Tool:
                 bool_override_choice = error.ask_override()
 
         else:                                      # volume is to be aspirated out of the location
-            if well_obj.currentLiquidVolume - target_volume >= 30:  # Since the aspiration ops, are only for the beakers, we have a threshold liquid carrying capacity of 30ml. 
+            if well_obj.currentLiquidVolume - target_volume >= 0:   
                 pass
             else: 
                 error = self.OverridableError(f"{well_obj} Well does not have enough liquid to aspirate {target_volume} ml liquid volume ")
