@@ -25,7 +25,7 @@
     "wells": {
         "A1": {
             "depth": 55,
-            "totalLiquidVolume": 30000,
+            "totalLiquidVolume": 40000,
             "shape": "circular",
             "diameter": 41.1,
             "x": 34.75,
@@ -34,7 +34,7 @@
         },
         "A2": {
             "depth": 55,
-            "totalLiquidVolume": 30000,
+            "totalLiquidVolume": 40000,
             "shape": "circular",
             "diameter": 41.1,
             "x": 92.75,
