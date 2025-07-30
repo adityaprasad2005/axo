@@ -333,23 +333,24 @@ class Experiment:
         axo.pickup_tool(dual_syringe)
         self.log_operation("Picked Up Dual Syringe")
 
+        # calculate the headroom_ml just for logging purposes
         drive0 = dual_syringe.e0_drive
         current_pos0 = float(dual_syringe._machine.get_position()[drive0])
         headroom_mm0 = current_pos0 - dual_syringe.min_range
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
-        # dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
 
         drive1 = dual_syringe.e1_drive
         current_pos1 = float(dual_syringe._machine.get_position()[drive1])
         headroom_mm1 = current_pos1 - dual_syringe.min_range
         headroom_ml1 = headroom_mm1 / dual_syringe.mm_to_ml
-        # dual_syringe.dispense_e1(vol= headroom_ml1, sample_loc_v=precursors[0], refill_loc_v=precursors[0], s=500)
 
-        x, y, z = dual_syringe._xy_for_drive(drive0, precursors[0]) 
+        # place the tool
+        x, y, z = dual_syringe._xy_for_drive(drive1, precursors[0]) 
         dual_syringe._machine.safe_z_movement()
         dual_syringe._machine.move_to(x=x, y=y, wait=True)
         dual_syringe._machine.move_to(z=z, wait=True)
 
+        # call the .reset_position func
         dual_syringe.reset_position()
 
         # update the currentLiquidVolume of the precursors
@@ -453,16 +454,18 @@ class Experiment:
         # Reset the single syringe position before parking because we have to use it later for mix ops 
         drive = single_syringe.e_drive 
 
+        # Position the tool 
         x, y, z = Labware._getxyz(solvents[1])
         single_syringe._machine.safe_z_movement()
         single_syringe._machine.move_to(x=x, y=y)
-        single_syringe._machine.move_to(z=z)
+        single_syringe._machine.move_to(z=z+20)
 
+        # calculate the headroom_ml just for logging purposes
         current_pos = float(single_syringe._machine.get_position()[drive])
         headroom_mm = current_pos - single_syringe.min_range
         headroom_ml = headroom_mm / single_syringe.mm_to_ml
-        # single_syringe.dispense(vol= headroom_ml, sample_loc=solvents[1].top(-10), refill_loc=solvents[1].top(-10), s=500)
 
+        # reset the single syringe
         single_syringe.reset_position()
 
         current_pos = float(single_syringe._machine.get_position()[drive])        
@@ -538,27 +541,23 @@ class Experiment:
                 dual_syringe.update_currentLiquidVolume(volume= metal_precursor_vol, location= sample_labware_ssy[vial_name], is_dispense=True )
                 dual_syringe.update_currentLiquidVolume(volume= metal_precursor_vol, location= sample_labware_spec[vial_name], is_dispense=True ) 
 
-        # Reset the dual syringe:0 before parking. We wont be using it later on. 
-        # drive0 = dual_syringe.e0_drive
-        # current_pos0 = float(dual_syringe._machine.get_position()[drive0])
-        # headroom_mm0 = current_pos0 - dual_syringe.min_range
-        # headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
-        # dual_syringe.dispense_e0(vol= headroom_ml0, sample_loc_e=precursors[1], refill_loc_e=precursors[0], s=500)
-        # current_pos = float(dual_syringe._machine.get_position()[drive0])
-        # self.log_operation(f"Dual Syringe Drive 0 reset and position: {current_pos}")
 
         # Reset the dual syringe:0 before parking. We wont be using it later on. 
         drive0 = dual_syringe.e0_drive
-
-        x, y, z = dual_syringe._xy_for_drive(drive0, precursors[0]) 
+        drive1 = dual_syringe.e1_drive
+        
+        # position the dual syringe
+        x, y, z = dual_syringe._xy_for_drive(drive1, precursors[0]) 
         dual_syringe._machine.safe_z_movement()
         dual_syringe._machine.move_to(x=x, y=y, wait=True)
         dual_syringe._machine.move_to(z=z, wait=True)
 
+        # find the headroom_ml just for logging purposes
         current_pos0 = float(dual_syringe._machine.get_position()[drive0])
         headroom_mm0 = current_pos0 - dual_syringe.min_range
         headroom_ml0 = headroom_mm0 / dual_syringe.mm_to_ml
-
+        
+        # reset the dual syringe
         dual_syringe.reset_position()
 
         # update the currentLiquidVolume of the precursors
